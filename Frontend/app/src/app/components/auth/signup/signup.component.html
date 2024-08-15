@@ -1,0 +1,53 @@
+<div class="signup-wrapper">
+
+  <div action="" class="signup-form">
+    <h2>Zarejestruj się</h2>
+    <form action="" class='form'>
+
+    <span class='inputs'>
+      <label for="signup-email">Email: </label>
+      <input
+      type='email'
+      name='signup-email'
+      id='signup-email'
+      placeholder='Podaj email'
+      required
+      >
+    </span>
+
+    <span  class='inputs'>
+      <label for="signup-password">Hasło: </label>
+      <input
+      [type]="passwordType"
+      name='signup-password'
+      id='signup-password'
+      placeholder='Podaj hasło'
+      required
+      >
+      <img
+      [src]='passwordSrc'
+      [alt]='passwordAlt'
+      [title]="passwordTitle"
+      (click)="tooglePasswordsAttributes()"
+      >
+    </span>
+
+    <span  class='checkbox'>
+      <input
+      type='checkbox'
+      id='accept-rules'
+      name='accept-rules'
+      required
+      >
+      <label for="accept-rules">Akceptuje warunki użytkowania i regulamin </label>
+    </span>
+
+    <input type="submit" value="Zarejestruj się">
+
+    </form>
+
+    <button (click)="changeForms()">Masz już konto? Zaloguj się</button>
+
+  </div>
+
+</div>

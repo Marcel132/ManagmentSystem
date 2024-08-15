@@ -1,0 +1,42 @@
+<div class="login-wrapper">
+
+  <div class="login-form">
+    <h2>Zaloguj się</h2>
+    <form action="" class='form'>
+
+      <span class='inputs'>
+        <label for="login-email">Email: </label>
+        <input
+        type='email'
+        name='login-email'
+        id='login-email'
+        placeholder='Podaj email'
+        required
+        >
+      </span>
+
+      <span  class='inputs'>
+        <label for="login-password">Hasło: </label>
+        <input
+        [type]="passwordType"
+        name='login-password'
+        id='login-password'
+        placeholder='Podaj hasło'
+        required
+        >
+        <img
+        [src]='passwordSrc'
+        [alt]='passwordAlt'
+        [title]="passwordTitle"
+        (click)="tooglePasswordsAttributes()"
+        >
+      </span>
+
+      <input type="submit" value="Zaloguj się">
+
+    </form>
+    <button (click)="changeForms()">Nie masz konta? Zarejestruj się</button>
+
+  </div>
+
+</div>

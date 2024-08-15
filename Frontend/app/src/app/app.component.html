@@ -1,0 +1,26 @@
+<ng-container *ngIf="false; then contentTemplate; else authTemplate;">
+</ng-container>
+
+
+
+<ng-template #authTemplate>
+
+  <div class='logo'>ManagmentSystem</div>
+
+  <div class="container">
+    <app-login *ngIf="toogleForms"></app-login>
+    <app-signup *ngIf="!toogleForms"></app-signup>
+  </div>
+
+</ng-template>
+<ng-template #contentTemplate>
+
+
+  <div class="container">
+
+    <app-header></app-header>
+    <app-footer></app-footer>
+
+  </div>
+
+</ng-template>
