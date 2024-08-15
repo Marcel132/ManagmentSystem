@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { AuthService } from '../auth.service';
 export class LoginComponent {
 
   constructor(
-    private authService: AuthService
+    private router: Router,
   ){}
 
   passwordType: string = 'password'
@@ -28,9 +29,8 @@ export class LoginComponent {
   }
 
 
-  changeForms() {
-    this.authService.changeFormValue = false
-    console.log('Login form: ', this.authService.changeFormValue)
+  changeForm() {
+    this.router.navigate(['/signup']);
   }
 
 }

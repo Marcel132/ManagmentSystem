@@ -26,7 +26,6 @@ import { AuthService } from './components/auth/auth.service';
     FooterComponent,
   ],
   providers: [
-    AuthService,
   ]
 })
 export class AppModule { }

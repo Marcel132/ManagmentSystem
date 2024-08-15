@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { AppModule } from './app.module';
 import { CommonModule } from '@angular/common';
-import { AuthService } from './components/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -16,19 +15,21 @@ import { AuthService } from './components/auth/auth.service';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-
+  
   constructor(
-    private authService: AuthService,
+    private router: Router
   ){}
-
+  
   title = 'app';
-
-  toogleForms!: boolean
+  
+  isLogged: boolean = false
 
   ngOnInit() {
-    this.authService.changeFormValue$.subscribe(value=> {
-      this.toogleForms = value
-    })
+    if(this.isLogged === true){
+      this.router.navigate(['/home']);
+    } else if(this.isLogged === false){
+      this.router.navigate(['/login'])
+    }
   }
 
 }

@@ -1,4 +1,4 @@
-<ng-container *ngIf="false; then contentTemplate; else authTemplate;">
+<ng-container *ngIf="isLogged; then contentTemplate; else authTemplate;">
 </ng-container>
 
 
@@ -8,8 +8,7 @@
   <div class='logo'>ManagmentSystem</div>
 
   <div class="container">
-    <app-login *ngIf="toogleForms"></app-login>
-    <app-signup *ngIf="!toogleForms"></app-signup>
+    <router-outlet></router-outlet>
   </div>
 
 </ng-template>
@@ -18,8 +17,7 @@
 
   <div class="container">
 
-    <app-header></app-header>
-    <app-footer></app-footer>
+    <router-outlet></router-outlet>
 
   </div>
 
