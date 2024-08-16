@@ -1,27 +1,34 @@
-<div class="login-wrapper">
+<div class="wrapper">
 
-  <div class="login-form">
+  <div class="form-box">
     <h2>Zaloguj się</h2>
-    <form action="" class='form'>
+    <form action="" class='form' (ngSubmit)='onSubmit()'>
 
       <span class='inputs'>
-        <label for="login-email">Email: </label>
+        <label for="email">Email: </label>
         <input
         type='email'
-        name='login-email'
-        id='login-email'
+        name='email'
+        id='email'
         placeholder='Podaj email'
+        [(ngModel)]="email"
+        
         required
         >
       </span>
 
+      <div class='error-message' *ngIf="invalidEmailMessage">
+        <p>Twój email jest niepoprawny</p>
+      </div>
+
       <span  class='inputs'>
-        <label for="login-password">Hasło: </label>
+        <label for="password">Hasło: </label>
         <input
         [type]="passwordType"
-        name='login-password'
-        id='login-password'
+        name='password'
+        id='password'
         placeholder='Podaj hasło'
+        [(ngModel)]="password"
         required
         >
         <img
@@ -31,6 +38,23 @@
         (click)="tooglePasswordsAttributes()"
         >
       </span>
+  
+      <div  class='error-message' *ngIf="invalidPasswordMessage">
+        <p>Twoje hasło musi zawierać: 
+          <ul>
+            <li>Przyjnajmniej jedną małą literę</li>
+            <li>Przyjnajmniej jedną dużą literę</li>
+            <li>Min. 8 liter</li>
+            <li>Przyjnajmniej jedną liczbę</li>
+            <li>Przynajmniej jeden znak specjalny</li>
+            <li>Nie może zawierać niedozwolonych znaków</li>
+          </ul>
+        <p>
+      </div>
+
+      <div  class='success-message' *ngIf="validDataMessage">
+        <p>Email i hasło są poprawne.</p>
+      </div>
 
       <input type="submit" value="Zaloguj się">
 

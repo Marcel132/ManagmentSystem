@@ -39,9 +39,36 @@ export class SignupComponent {
   email: string = '';
   password: string = '';
   acceptedRules: boolean = false;
+  validDataMessage!: boolean
+  invalidEmailMessage!: boolean;
+  invalidPasswordMessage!: boolean
+  notAcceptedRules!: boolean
 
   onSubmit() {
-    this.authService.registerUser(this.email, this.password, this.acceptedRules)
+    const validateEmail = this.authService.validateEmail(this.email)
+    const validatePassword = this.authService.validatePassword(this.password)
+
+    if(validateEmail && validatePassword && this.acceptedRules) {
+      this.validDataMessage = true
+      this.invalidPasswordMessage= false
+      this.invalidEmailMessage = false
+      this.notAcceptedRules = false
+
+      this.authService.registerUser(this.email, this.password, this.acceptedRules)
+    } 
+    else if(!validateEmail) {
+      this.invalidEmailMessage = true
+      this.invalidPasswordMessage = false
+    } 
+    else if(!validatePassword){
+      this.invalidPasswordMessage = true
+      this.invalidEmailMessage = false
+    }
+    else if(!this.acceptedRules){
+      this.notAcceptedRules = true
+      this.invalidPasswordMessage = false
+      this.invalidEmailMessage = false
+    }
 
   }
 }
