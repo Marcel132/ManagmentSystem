@@ -12,7 +12,6 @@ export class AuthService {
 
 
   registerUser(email: string, password: string, acceptedRules: boolean){
-    console.log("Funkcja działa", email, password, acceptedRules);
     const url = 'http://localhost:3000/api/users';
     const body = {
       email: email,
@@ -20,12 +19,13 @@ export class AuthService {
       acceptedRules: acceptedRules
     }
 
-    console.log(body)
-
     return this.http.post<any>(url, body).subscribe(
       response => {
         if (response.success) {
           sessionStorage.setItem('isLogged', 'true');
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500)
         }
       },
       error => {

@@ -41,7 +41,7 @@ export class SignupComponent {
   acceptedRules: boolean = false;
 
   onSubmit() {
-  console.log("onSubmit works,", this.email, this.password, this.acceptedRules)
     this.authService.registerUser(this.email, this.password, this.acceptedRules)
+
   }
 }

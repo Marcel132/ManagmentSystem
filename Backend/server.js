@@ -15,19 +15,14 @@ app.use(cors(
 
 MongoClient.connect(dbConfig.url, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(client => {
-  console.log("Połączono z bazą danych MongoDB");
-
   
   const db = client.db();
   const usersCollection = db.collection('users');
   
   app.post('/api/users', (req, res) => {
-    console.log("Metoda Post")
 
     const saltRounds = 10
     const {email, password, acceptedRules } = req.body
-
-    console.log(email, password, acceptedRules)
 
     bcrypt.genSalt(saltRounds)
       .then(salt => bcrypt.hash(password, salt))
@@ -37,8 +32,6 @@ MongoClient.connect(dbConfig.url, { useNewUrlParser: true, useUnifiedTopology: t
           password: hash,
           acceptedRules: acceptedRules
         };
-
-        console.log(userData)
 
         return usersCollection.insertOne(userData);
     })

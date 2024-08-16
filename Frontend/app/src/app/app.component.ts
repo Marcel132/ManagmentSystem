@@ -22,14 +22,21 @@ export class AppComponent implements OnInit {
   
   title = 'app';
   
-  isLogged: boolean = false
-
+  isLogged: boolean = false;
+  
   ngOnInit() {
-    // if(this.isLogged === true){
-    //   this.router.navigate(['/home']);
-    // } else if(this.isLogged === false){
-    //   this.router.navigate(['/login'])
-    // }
+    if(typeof window !== 'undefined'){
+      if(sessionStorage.getItem('isLogged')){
+        this.isLogged = true;
+      } else {
+        this.isLogged = false
+      }
+      if(this.isLogged === true){
+        this.router.navigate(['/home']);
+      } else if(this.isLogged === false){
+        this.router.navigate(['/login'])
+      }
+    }
   }
 
 }
