@@ -3,41 +3,52 @@ const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
 const dbConfig = require('./config/db.config.js')
 const bcrypt = require("bcrypt")
+const cors = require('cors')
 
 const app = express();
 const port = 3000;
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cors(
+  {origin: 'http://localhost:4200'}
+))
 
 MongoClient.connect(dbConfig.url, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(client => {
   console.log("Połączono z bazą danych MongoDB");
+
   
   const db = client.db();
   const usersCollection = db.collection('users');
   
-  app.get('/signup', (req, res) => {
+  app.post('/api/users', (req, res) => {
+    console.log("Metoda Post")
 
-  const saltRounds = 10
-  const queryPassword = req.query['signup-password']
-  bcrypt.genSalt(saltRounds)
-    .then(salt => bcrypt.hash(queryPassword, salt))
-    .then(hash => {
-      const userData = {
-        email: req.query['signup-email'],
-        password: hash,
-        acceptedRules: req.query['accept-rules'] === 'on'
-      };
+    const saltRounds = 10
+    const {email, password, acceptedRules } = req.body
 
-      return usersCollection.insertOne(userData);
+    console.log(email, password, acceptedRules)
+
+    bcrypt.genSalt(saltRounds)
+      .then(salt => bcrypt.hash(password, salt))
+      .then(hash => {
+        const userData = {
+          email: email,
+          password: hash,
+          acceptedRules: acceptedRules
+        };
+
+        console.log(userData)
+
+        return usersCollection.insertOne(userData);
     })
     .then(result => {
       console.log('Dane użytkownika zostały zapisane');
-      res.send('Rejestracja zakończona sukcesem!');
+      res.status(200).json({success: true})
     })
     .catch(error => {
       console.error(error);
-      res.status(500).send('Wystąpił błąd podczas rejestracji.');
+      res.status(500).json({error: true})
     });
   });
 

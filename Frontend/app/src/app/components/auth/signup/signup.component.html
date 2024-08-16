@@ -1,8 +1,8 @@
 <div class="signup-wrapper">
 
-  <div action="" class="signup-form">
+  <div class="signup-form">
     <h2>Zarejestruj się</h2>
-    <form action="" class='form'>
+    <form action="" class='form' (ngSubmit)='onSubmit()'>
 
     <span class='inputs'>
       <label for="signup-email">Email: </label>
@@ -11,6 +11,7 @@
       name='signup-email'
       id='signup-email'
       placeholder='Podaj email'
+      [(ngModel)]='email'
       required
       >
     </span>
@@ -22,6 +23,7 @@
       name='signup-password'
       id='signup-password'
       placeholder='Podaj hasło'
+      [(ngModel)]='password'
       required
       >
       <img
@@ -37,6 +39,7 @@
       type='checkbox'
       id='accept-rules'
       name='accept-rules'
+      [(ngModel)]='acceptedRules'
       required
       >
       <label for="accept-rules">Akceptuje warunki użytkowania i regulamin </label>
@@ -49,5 +52,5 @@
     <button (click)="changeForm()">Masz już konto? Zaloguj się</button>
 
   </div>
-
+  
 </div>

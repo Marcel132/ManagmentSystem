@@ -25,11 +25,11 @@ export class AppComponent implements OnInit {
   isLogged: boolean = false
 
   ngOnInit() {
-    if(this.isLogged === true){
-      this.router.navigate(['/home']);
-    } else if(this.isLogged === false){
-      this.router.navigate(['/login'])
-    }
+    // if(this.isLogged === true){
+    //   this.router.navigate(['/home']);
+    // } else if(this.isLogged === false){
+    //   this.router.navigate(['/login'])
+    // }
   }
 
 }

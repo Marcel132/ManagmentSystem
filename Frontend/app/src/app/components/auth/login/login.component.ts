@@ -31,6 +31,7 @@ export class LoginComponent {
 
   changeForm() {
     this.router.navigate(['/signup']);
+    console.log()
   }
 
 }
