@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EmailValidationResult, PasswordValidationResult } from './auth.interface'
+import { catchError, map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -39,28 +40,53 @@ export class AuthService {
 
 
   loginUser(email: string, password: string){
-    console.log("loginUser", email, password)
-  }
-  registerUser(email: string, password: string, acceptedRules: boolean){
-    const url = 'http://localhost:3000/api/users';
+    const url = 'http://localhost:3000/api/auth/login'
     const body = {
       email: email,
-      password: password,
-      acceptedRules: acceptedRules
+      password: password
     }
 
     return this.http.post<any>(url, body).subscribe(
       response => {
-        if (response.success) {
-          sessionStorage.setItem('isLogged', 'true');
-          setTimeout(() => {
-            window.location.reload();
+        if(response.success){
+          sessionStorage.setItem('isLogged', 'true')
+          sessionStorage.setItem('userData', email)
+          setTimeout(()=>{
+            window.location.reload()
           }, 1500)
         }
       },
       error => {
-        console.error('Wystąpił błąd podczas rejestracji:', error);
+        console.error('Wystąpił błąd podczas logowania:', error);
       }
+    )
+  }
+  registerUser(userData: any): Observable<{ type: string; message?: string }>{
+    const url = 'http://localhost:3000/api/auth/signup'
+    const body = {
+      email: userData.email,
+      password: userData.password,
+      acceptedRules: userData.acceptedRules,
+      createdAt: userData.createdAt
+    }
+
+    return this.http.post<any>(url, body).pipe(
+      map(response => {
+
+        if(response.success){
+          sessionStorage.setItem('isLogged', 'true')
+          return { type:  'success' }
+        } 
+        else {
+          return { type: 'error', message: 'Unknow error'}
+        }
+      }),
+      catchError(error => {
+        if(error.status === 409){
+          return of({ type: 'invalidEmail', message: 'Email already exists'})
+        } 
+        return of({ type: 'error', message: 'Server error' });
+      })
     );
   }
 

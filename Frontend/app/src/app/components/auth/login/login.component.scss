@@ -83,17 +83,22 @@
   .error-message{
     background-color: #eaaf00;
     border-radius: 24px;
-    padding: 0.4rem;
+    margin-top: 0.5rem;
+    padding: 0.67rem;
 
-    ul li {
-      list-style-type: none;
-      margin: 0.1rem;
-      padding: 0.013rem;
+    ul {
+      padding-left: 0.5rem;
+      li {
+        list-style-type: none;
+        margin: 0.1rem;
+        padding: 0.013rem;
+      }
     }
   }
   .success-message{
     background-color: rgba(0, 212, 0, 0.656);
     border-radius: 24px;
+    margin-top: 0.5rem;
     padding: 0.4rem;
   }
 }

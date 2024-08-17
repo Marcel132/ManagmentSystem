@@ -39,6 +39,7 @@ export class SignupComponent {
   email: string = '';
   password: string = '';
   acceptedRules: boolean = false;
+  errorEmailMessage!: string 
   validDataMessage!: boolean
   invalidEmailMessage!: boolean;
   invalidPasswordMessage!: boolean
@@ -49,15 +50,48 @@ export class SignupComponent {
     const validatePassword = this.authService.validatePassword(this.password)
 
     if(validateEmail && validatePassword && this.acceptedRules) {
-      this.validDataMessage = true
-      this.invalidPasswordMessage= false
-      this.invalidEmailMessage = false
-      this.notAcceptedRules = false
+      
+      const createdAt = this.getDate()
+      const userData: any = {
+        email: this.email,
+        password: this.password,
+        acceptedRules: this.acceptedRules,
+        createdAt: createdAt,
+      }
+      
+      this.authService.registerUser(userData).subscribe(response => {
+        switch (response.type) {
+          case 'success':
+            this.validDataMessage = true;
+            this.invalidEmailMessage = false;
+            this.invalidPasswordMessage = false;
+            this.notAcceptedRules = false;
+            setTimeout(() => window.location.reload(), 1500);
+            break;
+          case 'invalidEmail':
+            this.invalidEmailMessage = true;
+            this.errorEmailMessage =  'Taki email już istnieje';
+            break;
+          case 'error':
+            this.invalidEmailMessage = false;
+            this.invalidPasswordMessage = false;
+            this.notAcceptedRules = false;
+            this.errorEmailMessage = 'Wystąpił błąd serwera';
+            break;
+          default:
+            console.error('Unexpected response:', response);
+            this.errorEmailMessage = 'Nieoczekiwany błąd';
+            break;
+        }
+      });
 
-      this.authService.registerUser(this.email, this.password, this.acceptedRules)
+
+      this.invalidPasswordMessage= false
+      this.notAcceptedRules = false
     } 
     else if(!validateEmail) {
       this.invalidEmailMessage = true
+      this.errorEmailMessage = 'Niepoprawny ares'
       this.invalidPasswordMessage = false
     } 
     else if(!validatePassword){
@@ -69,6 +103,17 @@ export class SignupComponent {
       this.invalidPasswordMessage = false
       this.invalidEmailMessage = false
     }
-
+    
+  }
+  getDate() {
+    const date = new Date()
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+    const hour = date.getHours()
+    const minute = date.getMinutes()
+    const seceonds = date.getSeconds()
+  
+   return `${day}/${month}/${year} ${hour}:${minute}:${seceonds}`
   }
 }

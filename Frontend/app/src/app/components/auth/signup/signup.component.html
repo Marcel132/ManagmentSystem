@@ -17,7 +17,7 @@
     </span>
     
     <div class='error-message' *ngIf="invalidEmailMessage">
-      Twój email jest niepoprawny
+      {{errorEmailMessage}}
     </div>
     
     <span  class='inputs'>
@@ -65,6 +65,7 @@
         </ul>
       <p>
     </div>
+    
 
     <div class='success-message' *ngIf="validDataMessage">
       <p>Email i hasło są poprawne.</p>

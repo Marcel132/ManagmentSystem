@@ -48,11 +48,12 @@ export class LoginComponent {
     let validateEmail = this.authService.validateEmail(this.email)
     let validatePassword = this.authService.validatePassword(this.password)
     if(validateEmail && validatePassword) {
+      
+      this.authService.loginUser(this.email, this.password)
+      
       this.validDataMessage = true
       this.invalidPasswordMessage= false
       this.invalidEmailMessage = false
-
-      this.authService.loginUser(this.email, this.password)
     } 
     else if(!validateEmail) {
       this.invalidEmailMessage = true
