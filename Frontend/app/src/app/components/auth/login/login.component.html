@@ -17,8 +17,8 @@
         >
       </span>
 
-      <div class='error-message' *ngIf="invalidEmailMessage">
-        <p>Twój email jest niepoprawny</p>
+      <div class='error-message' *ngIf="invalidEmail">
+        {{ invalidEmailMessage }}
       </div>
 
       <span  class='inputs'>
@@ -39,20 +39,11 @@
         >
       </span>
   
-      <div  class='error-message' *ngIf="invalidPasswordMessage">
-        <p>Twoje hasło musi zawierać: 
-          <ul>
-            <li>Przyjnajmniej jedną małą literę</li>
-            <li>Przyjnajmniej jedną dużą literę</li>
-            <li>Min. 8 liter</li>
-            <li>Przyjnajmniej jedną liczbę</li>
-            <li>Przynajmniej jeden znak specjalny</li>
-            <li>Nie może zawierać niedozwolonych znaków</li>
-          </ul>
-        <p>
+      <div  class='error-message' *ngIf="invalidPassword">
+        {{ invalidPasswordMessage }}
       </div>
 
-      <div  class='success-message' *ngIf="validDataMessage">
+      <div  class='success-message' *ngIf="validData">
         <p>Email i hasło są poprawne.</p>
       </div>
 

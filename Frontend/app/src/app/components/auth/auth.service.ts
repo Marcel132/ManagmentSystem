@@ -46,19 +46,22 @@ export class AuthService {
       password: password
     }
 
-    return this.http.post<any>(url, body).subscribe(
-      response => {
+    return this.http.post<any>(url, body).pipe(
+      map(response => {
         if(response.success){
           sessionStorage.setItem('isLogged', 'true')
-          sessionStorage.setItem('userData', email)
-          setTimeout(()=>{
-            window.location.reload()
-          }, 1500)
+          return {type: 'success'}
+        } 
+        else if(response.invalidPassword){
+          return {type: 'invalidPassword'}
+        }  
+        else {
+          return { type: 'error', message: 'Unknow error'}
         }
-      },
-      error => {
-        console.error('Wystąpił błąd podczas logowania:', error);
-      }
+      }),
+      catchError(error => {
+        return of({type: 'error', message: 'Server error'})
+      })
     )
   }
   registerUser(userData: any): Observable<{ type: string; message?: string }>{

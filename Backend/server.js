@@ -66,7 +66,8 @@ MongoClient.connect(dbConfig.url, { useNewUrlParser: true, useUnifiedTopology: t
           })
         } else {
           res.status(401).json({
-            success: false, 
+            success: false,
+            invalidPasswords: true, 
             message: 'Invalid Password'
           })
         }

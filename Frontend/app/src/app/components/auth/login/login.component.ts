@@ -13,6 +13,7 @@ import { SharedModule } from '../../../modules/shared.module';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+
   
   constructor(
     private router: Router,
@@ -40,28 +41,48 @@ export class LoginComponent {
   
   email: string = ''
   password: string = ''
-  validDataMessage!: boolean
-  invalidEmailMessage!: boolean;
-  invalidPasswordMessage!: boolean
+  
+  invalidEmailMessage!: string;
+  invalidPasswordMessage!: string
+
+  validData: boolean = false;
+  invalidPassword: boolean = false;
+  invalidEmail: boolean = false;;
   
   onSubmit() {
     let validateEmail = this.authService.validateEmail(this.email)
     let validatePassword = this.authService.validatePassword(this.password)
     if(validateEmail && validatePassword) {
       
-      this.authService.loginUser(this.email, this.password)
+      this.authService.loginUser(this.email, this.password).subscribe(response => {
+        switch(response.type) {
+          case 'success':
+            this.validData = true
+            this.invalidEmail = false
+            this.invalidPassword = false
+
+            setTimeout(()=> {
+              window.location.reload()
+            }, 1500)
+            break
+          
+          case 'invalidPassword':
+            this.invalidPassword = true
+            this.invalidPasswordMessage = "Błędne Hasło"
+        }
+      })
       
-      this.validDataMessage = true
-      this.invalidPasswordMessage= false
-      this.invalidEmailMessage = false
+
     } 
     else if(!validateEmail) {
-      this.invalidEmailMessage = true
-      this.invalidPasswordMessage = false
+      this.invalidEmail = true
+      this.invalidEmailMessage = "Błędny email"
+      this.invalidPassword = false
     } 
     else if(!validatePassword){
-      this.invalidPasswordMessage = true
-      this.invalidEmailMessage = false
+      this.invalidPassword = true
+      this.invalidPasswordMessage = `Twoje hasło nie spełnia warunków bezpieczeństwa`
+      this.invalidEmail = false
     }
   }
   
