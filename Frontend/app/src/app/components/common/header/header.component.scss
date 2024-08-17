@@ -1,0 +1,72 @@
+.nav {
+  width: 170px;
+  min-height: calc(100vh - 120px);
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  color: white;
+  font-weight: 560;
+  background: linear-gradient(
+    180deg,
+    #394357,
+    #252D3A
+  );
+
+  img {
+    width: 1.27em;
+    margin-right: 0.4rem;
+  }
+}
+
+.nav-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+// For showing / hidding navigation
+.hide-nav {
+  width: 50px;
+}
+
+.nav-list-item {
+  width: 100%;
+  text-align: justify;
+  padding: 1em 0;
+
+  
+  img {
+    width: 1.41em;
+    margin-right: 0.4rem;
+    filter:  invert(100%) brightness(100%)
+  }
+  
+  a{
+    cursor: pointer;
+  }
+  p {
+    display: none;
+  }
+}
+.toogle-nav {
+  text-align: left;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 500px) {
+  .show-nav {
+    width: 100vw;
+    align-items: center;
+  }
+  .nav-list-item {
+    text-align: center;
+
+    p{
+      display: block;
+      font-size: 0.8em;
+      letter-spacing: .132em;
+    }
+  }
+  .content {
+    display: none;
+  }
+}

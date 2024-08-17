@@ -1,1 +1,31 @@
-<p>header works!</p>
+<div class="nav"  [ngClass]="{'show-nav': isActive, 'hide-nav': !isActive}">
+  <div class="nav-list">
+    <div class="nav-list-item toogle-nav" >
+      <img src="../../../../assets/img/list.svg" alt="Show / hide navigation" (click)="toogleNavbar()">
+    </div>
+  </div>
+  <div class="nav-list" *ngIf='isActive'>
+    <div class="nav-list-item">
+      <img src="../../../../assets/img/house.svg" alt="Home">
+      <a [routerLink]='["/home"]' (click)="hideNav()">Strona główna</a>
+      <p class="mobile-desc">Udaj się na stronę główną</p>
+    </div>
+    <div class="nav-list-item">
+      <img src="../../../../assets/img/gear.svg" alt="Settings">
+      <a [routerLink]='["/home/settings"]' (click)="hideNav()" >Ustawienia</a>
+      <p class="mobile-desc">Przejdź do ustawień konta</p>
+    </div>
+    <div class="nav-list-item">
+      <img src="../../../../assets/img/house.svg" alt="Home">
+      <a [routerLink]='["/home"]' (click)="hideNav()">Strona główna</a>
+      <p class="mobile-desc"></p>
+    </div>
+  </div>
+</div>
+
+  <!-- <div class="nav-list-item">
+    <img src="" alt="">
+    <a [routerLink]='["/"]'></a>
+    <p class="mobile-desc"></p>
+  </div> -->
+
