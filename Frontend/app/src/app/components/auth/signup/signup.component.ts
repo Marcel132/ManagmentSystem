@@ -66,6 +66,8 @@ export class SignupComponent {
             this.invalidEmailMessage = false;
             this.invalidPasswordMessage = false;
             this.notAcceptedRules = false;
+            document.body.style.cursor = 'wait';
+
             setTimeout(() => window.location.reload(), 1500);
             break;
           case 'invalidEmail':

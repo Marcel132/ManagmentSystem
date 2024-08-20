@@ -20,7 +20,7 @@ MongoClient.connect(dbConfig.url, { useNewUrlParser: true, useUnifiedTopology: t
   const db = client.db();
   const usersCollection = db.collection('users');
   
-  app.post('/api/auth/signup', async (req, res) => {
+  app.post('/v01/api/auth/signup', async (req, res) => {
 
     const {email, password, acceptedRules,createdAt } = req.body
 
@@ -52,7 +52,7 @@ MongoClient.connect(dbConfig.url, { useNewUrlParser: true, useUnifiedTopology: t
     };
   });
 
-  app.post('/api/auth/login', async (req, res) => {
+  app.post('/v01/api/auth/login', async (req, res) => {
 
     const {email, password} = req.body
 
@@ -64,9 +64,8 @@ MongoClient.connect(dbConfig.url, { useNewUrlParser: true, useUnifiedTopology: t
           res.status(200).json({
             success: true
           })
-        } else {
+        } else if(!isPasswordMatch) {
           res.status(401).json({
-            success: false,
             invalidPasswords: true, 
             message: 'Invalid Password'
           })

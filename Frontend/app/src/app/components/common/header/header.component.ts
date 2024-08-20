@@ -21,4 +21,11 @@ export class HeaderComponent {
     this.isActive = false;
   }
   
+  logOut() {
+    sessionStorage.removeItem('isLogged');
+    document.body.style.cursor = 'wait !important';
+
+    setTimeout(() => window.location.reload(), 1500);
+
+  }
 }

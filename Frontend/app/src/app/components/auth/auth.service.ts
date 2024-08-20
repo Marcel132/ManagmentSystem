@@ -40,7 +40,7 @@ export class AuthService {
 
 
   loginUser(email: string, password: string){
-    const url = 'http://localhost:3000/api/auth/login'
+    const url = 'http://localhost:3000/v01/api/auth/login'
     const body = {
       email: email,
       password: password
@@ -53,10 +53,10 @@ export class AuthService {
           return {type: 'success'}
         } 
         else if(response.invalidPassword){
-          return {type: 'invalidPassword'}
+          return {type: 'invalidPassword', message: response.message}
         }  
         else {
-          return { type: 'error', message: 'Unknow error'}
+          return { type: 'error', message: response.message}
         }
       }),
       catchError(error => {
@@ -65,7 +65,7 @@ export class AuthService {
     )
   }
   registerUser(userData: any): Observable<{ type: string; message?: string }>{
-    const url = 'http://localhost:3000/api/auth/signup'
+    const url = 'http://localhost:3000/v01/api/auth/signup'
     const body = {
       email: userData.email,
       password: userData.password,

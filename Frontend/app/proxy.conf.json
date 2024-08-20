@@ -1,5 +1,5 @@
 {
-  "/api/users": {
+  "v01/api/users": {
     "target": "http://localhost:3000",
     "secure": false
   }
