@@ -7,7 +7,7 @@ const cors = require('cors')
 const jwt = require('jsonwebtoken')
 const bcrypt = require("bcrypt")
 
-const routes = require('./routes/routes.module.js')
+const routes = require('./api/routes/routes.module.js')
 
 const app = express();
 const port = 3000;
