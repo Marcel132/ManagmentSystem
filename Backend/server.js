@@ -27,13 +27,9 @@ MongoClient.connect(dbConfig.url, { useNewUrlParser: true, useUnifiedTopology: t
   const usersCollection = db.collection('users');
 
 
-  app.use('/v01/api/auth', routes.auth(usersCollection, hashedPassword))
+  app.use('/v01/api/auth', routes.auth(usersCollection))
 
-  async function hashedPassword(password){
-    const salt = await bcrypt.genSalt(10)
-    const hash = await bcrypt.hash(password, salt)
-    return hash
-  }
+
 
   app.listen(port, () => {
     console.log(`Serwer działa na porcie ${port}`);

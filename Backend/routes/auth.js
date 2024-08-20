@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt")
 
 const router = express.Router()
 
-module.exports = (usersCollection, hashedPassword) => {
+module.exports = (usersCollection) => {
   router.post('/signup', async (req, res) => {
 
     const {email, password, acceptedRules,createdAt } = req.body
@@ -70,6 +70,12 @@ module.exports = (usersCollection, hashedPassword) => {
       })
     }
   })
+
+  async function hashedPassword(password){
+    const salt = await bcrypt.genSalt(10)
+    const hash = await bcrypt.hash(password, salt)
+    return hash
+  }
 
   return router
 }
