@@ -7,22 +7,22 @@
   <div class="nav-list" *ngIf='isActive'>
     <div class="nav-list-item">
       <img src="../../../../assets/img/house.svg" alt="Home">
-      <a [routerLink]='["/home"]' (click)="hideNav()">Strona główna</a>
+      <a [routerLink]='["/home"]'>Strona główna</a>
       <p class="mobile-desc">Udaj się na stronę główną</p>
     </div>
     <div class="nav-list-item">
-      <img src="" alt="">
-      <a [routerLink]='["/"]'></a>
+      <img src="../../../../assets/img/plus-square.svg" alt="">
+      <a [routerLink]='["/home/create-new-resource"]'>Utwórz zasób</a>
       <p class="mobile-desc"></p>
     </div>
     <div class="nav-list-item">
-      <img src="" alt="">
-      <a [routerLink]='["/"]'></a>
+      <img src="../../../../assets/img/bar-chart.svg" alt="Resources">
+      <a [routerLink]='["/home/resources"]'>Zasoby</a>
       <p class="mobile-desc"></p>
     </div>
     <div class="nav-list-item">
       <img src="../../../../assets/img/gear.svg" alt="Settings">
-      <a [routerLink]='["/home/settings"]' (click)="hideNav()" >Ustawienia</a>
+      <a [routerLink]='["/home/settings"]'>Ustawienia</a>
       <p class="mobile-desc">Przejdź do ustawień konta</p>
     </div>
     <div class="nav-list-item">

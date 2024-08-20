@@ -1,5 +1,5 @@
 .nav {
-  width: 200px;
+  width: 170px;
   min-height: calc(100vh - 120px);
   display: flex;
   flex-direction: column;
@@ -12,10 +12,6 @@
     #252D3A
   );
 
-  img {
-    width: 1.27em;
-    margin-right: 0.4rem;
-  }
 }
 
 .nav-list {
@@ -48,7 +44,7 @@
   }
 }
 .toogle-nav {
-  text-align: left;
+  text-align-last: left;
   cursor: pointer;
 }
 
@@ -57,6 +53,7 @@
     width: 100vw;
     align-items: center;
   }
+
   .nav-list-item {
     text-align: center;
 
