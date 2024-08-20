@@ -49,11 +49,13 @@ module.exports = (usersCollection, hashedPassword) => {
             success: true
           })
           console.log('Login successful')
-        } else if(!isPasswordMatch) {
+        } 
+        else if(!isPasswordMatch) {
           res.status(401).json({
-            invalidPasswords: true, 
+            error: true, 
             message: 'Invalid Password'
           })
+          
         }
       } else {
         res.status(404).json({

@@ -52,8 +52,8 @@ export class AuthService {
           sessionStorage.setItem('isLogged', 'true')
           return {type: 'success'}
         } 
-        else if(response.invalidPassword){
-          return {type: 'invalidPassword', message: response.message}
+        else if(response.error){
+          return {type: 'error', message: response.message}
         }  
         else {
           return { type: 'error', message: response.message}

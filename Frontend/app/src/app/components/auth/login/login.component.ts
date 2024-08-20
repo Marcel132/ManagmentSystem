@@ -62,11 +62,10 @@ export class LoginComponent {
             this.invalidPassword = false
             document.body.style.cursor = 'wait';
 
-            // setTimeout(() => window.location.reload(), 1500);
-
+            setTimeout(() => window.location.reload(), 1500);
             break
           
-          case 'invalidPassword':
+          case 'error':
             this.invalidPassword = true
             this.invalidPasswordMessage = "Błędne Hasło"
         }
