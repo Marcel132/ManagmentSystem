@@ -42,8 +42,8 @@ export class LoginComponent {
   email: string = ''
   password: string = ''
   
-  invalidEmailMessage!: string;
-  invalidPasswordMessage!: string
+  emailMessage!: string;
+  passwordMessage!: string
 
   validData: boolean = false;
   invalidPassword: boolean = false;
@@ -65,9 +65,17 @@ export class LoginComponent {
             setTimeout(() => window.location.reload(), 1500);
             break
           
-          case 'error':
+          case 'Invalid_Password':
             this.invalidPassword = true
-            this.invalidPasswordMessage = "Błędne Hasło"
+            this.invalidEmail = false
+            this.passwordMessage = response.message
+            break
+          case 'Server_Error':
+            this.invalidPassword = true
+            this.invalidEmail = false
+            this.passwordMessage = response.message
+            break
+
         }
       })
       
@@ -75,12 +83,12 @@ export class LoginComponent {
     } 
     else if(!validateEmail) {
       this.invalidEmail = true
-      this.invalidEmailMessage = "Błędny email"
+      this.emailMessage = "Błędny email"
       this.invalidPassword = false
     } 
     else if(!validatePassword){
       this.invalidPassword = true
-      this.invalidPasswordMessage = `Twoje hasło nie spełnia warunków bezpieczeństwa`
+      this.passwordMessage = `Twoje hasło nie spełnia warunków bezpieczeństwa`
       this.invalidEmail = false
     }
   }

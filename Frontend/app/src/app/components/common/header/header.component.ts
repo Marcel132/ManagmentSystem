@@ -22,7 +22,7 @@ export class HeaderComponent {
   }
   
   logOut() {
-    sessionStorage.removeItem('isLogged');
+    sessionStorage.removeItem('token');
     document.body.style.cursor = 'wait !important';
 
     setTimeout(() => window.location.reload(), 1500);

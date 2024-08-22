@@ -49,21 +49,22 @@ export class AuthService {
     return this.http.post<any>(url, body).pipe(
       map(response => {
         if(response.success){
-          sessionStorage.setItem('isLogged', 'true')
-          return {type: 'success'}
+          sessionStorage.setItem('token', response.token)
+          return { type: 'success', message: response.message }
         } 
-        else if(response.error){
-          return {type: 'error', message: response.message}
-        }  
         else {
-          return { type: 'error', message: response.message}
+          return { type: 'error', message: response.message } 
         }
       }),
       catchError(error => {
-        return of({type: 'error', message: 'Server error'})
+        return of({
+          type: error.status === 500 ? "Server_Error" : "Invalid_Password", 
+          message: error.status === 500 ? "Server error" : "Błędne Hasło"},
+        )
       })
     )
   }
+
   registerUser(userData: any): Observable<{ type: string; message?: string }>{
     const url = 'http://localhost:3000/v01/api/auth/signup'
     const body = {
@@ -77,7 +78,7 @@ export class AuthService {
       map(response => {
 
         if(response.success){
-          sessionStorage.setItem('isLogged', 'true')
+          sessionStorage.setItem('token', response.token)
           return { type:  'success' }
         } 
         else {
