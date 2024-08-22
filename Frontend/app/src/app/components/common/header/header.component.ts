@@ -20,11 +20,12 @@ export class HeaderComponent {
   hideNav() {
     this.isActive = false;
   }
+  isAuthorized: boolean = true;
   
   logOut() {
     sessionStorage.removeItem('token');
-    document.body.style.cursor = 'wait !important';
-
+    document.body.style.cursor = 'wait';
+    
     setTimeout(() => window.location.reload(), 1500);
 
   }

@@ -13,17 +13,22 @@
     <div class="nav-list-item">
       <img src="../../../../assets/img/plus-square.svg" alt="">
       <a [routerLink]='["/home/create-new-resource"]'>Utwórz zasób</a>
-      <p class="mobile-desc"></p>
+      <p class="mobile-desc">Utwórz zasób</p>
     </div>
     <div class="nav-list-item">
       <img src="../../../../assets/img/bar-chart.svg" alt="Resources">
       <a [routerLink]='["/home/resources"]'>Zasoby</a>
-      <p class="mobile-desc"></p>
+      <p class="mobile-desc">Wyświetl zasoby</p>
     </div>
     <div class="nav-list-item">
       <img src="../../../../assets/img/gear.svg" alt="Settings">
-      <a [routerLink]='["/home/settings"]'>Ustawienia</a>
+      <a [routerLink]='["/settings"]'>Ustawienia</a>
       <p class="mobile-desc">Przejdź do ustawień konta</p>
+    </div>
+    <div class="nav-list-item" *ngIf="isAuthorized">
+      <img src="../../../../assets/img/person-vcard-fill.svg" alt="Admin Panel">
+      <a [routerLink]='["/admin"]'>Admin Panel</a>
+      <p class='mobile-desc'>Przedź do panelu admina</p>
     </div>
     <div class="nav-list-item">
       <img src="../../../../assets/img/box-arrow-left.svg" alt="Log out">

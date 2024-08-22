@@ -14,7 +14,6 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './signup.component.scss'
 })
 export class SignupComponent {
-  
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -29,8 +28,8 @@ export class SignupComponent {
     // Change passwords attributes when a user click on the img
     this.passwordType = this.passwordType === 'password' ? 'text' : 'password'
     this.passwordSrc = this.passwordSrc === './../../../assets/img/eye.svg' ? './../../../assets/img/eye-slash.svg' : './../../../assets/img/eye.svg'
-    this.passwordAlt = this.passwordAlt === 'Show Password' ? 'Hide Password' : 'ShowPassword'
-    this.passwordTitle = this.passwordTitle === 'Show Password' ? 'Hide Password' : 'ShowPassword'
+    this.passwordAlt = this.passwordAlt === 'Show Password' ? 'Hide Password' : 'Show Password'
+    this.passwordTitle = this.passwordTitle === 'Show Password' ? 'Hide Password' : 'Show Password'
   }
   
   changeForm() {
@@ -39,10 +38,16 @@ export class SignupComponent {
   email: string = '';
   password: string = '';
   acceptedRules: boolean = false;
-  errorEmailMessage!: string 
-  validDataMessage!: boolean
-  invalidEmailMessage!: boolean;
-  invalidPasswordMessage!: boolean
+  
+  invalidEmail: boolean = false;
+  invalidPassword: boolean = false;
+
+  emailMessage!: string;
+  passwordMessage!: string
+    
+  validData: boolean = false
+  
+
   notAcceptedRules!: boolean
 
   onSubmit() {
@@ -62,48 +67,43 @@ export class SignupComponent {
       this.authService.registerUser(userData).subscribe(response => {
         switch (response.type) {
           case 'success':
-            this.validDataMessage = true;
-            this.invalidEmailMessage = false;
-            this.invalidPasswordMessage = false;
-            this.notAcceptedRules = false;
+            this.validData = true;
             document.body.style.cursor = 'wait';
 
             setTimeout(() => window.location.reload(), 1500);
             break;
+
           case 'invalidEmail':
-            this.invalidEmailMessage = true;
-            this.errorEmailMessage =  'Taki email już istnieje';
+            this.invalidEmail = true;
+            this.emailMessage =  response.message || "Taki email już istneije";
             break;
+
           case 'error':
-            this.invalidEmailMessage = false;
-            this.invalidPasswordMessage = false;
-            this.notAcceptedRules = false;
-            this.errorEmailMessage = 'Wystąpił błąd serwera';
-            break;
-          default:
-            console.error('Unexpected response:', response);
-            this.errorEmailMessage = 'Nieoczekiwany błąd';
+            this.invalidPassword = true;
+            this.passwordMessage = response.message || "Nieoczekiwany błąd";
             break;
         }
       });
-
-
-      this.invalidPasswordMessage= false
-      this.notAcceptedRules = false
     } 
-    else if(!validateEmail) {
-      this.invalidEmailMessage = true
-      this.errorEmailMessage = 'Niepoprawny ares'
-      this.invalidPasswordMessage = false
-    } 
-    else if(!validatePassword){
-      this.invalidPasswordMessage = true
-      this.invalidEmailMessage = false
+
+    if(!validateEmail) {
+      this.invalidEmail = true
+      this.emailMessage = 'Niepoprawny adres e-mail'
+    } else {
+      this.invalidEmail = false
     }
-    else if(!this.acceptedRules){
+
+    if(!validatePassword){
+      this.invalidPassword = true
+      this.passwordMessage = `Twoje hasło nie spełnia norm bezpieczeństwa`
+    } else {
+      this.invalidPassword = false
+    }
+
+    if(!this.acceptedRules){
       this.notAcceptedRules = true
-      this.invalidPasswordMessage = false
-      this.invalidEmailMessage = false
+    } else {
+      this.notAcceptedRules = false
     }
     
   }

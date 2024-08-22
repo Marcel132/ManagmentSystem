@@ -13,5 +13,4 @@ import { MainModule } from './main.module';
   styleUrl: './main.component.scss'
 })
 export class MainComponent {
-
 }

@@ -58,8 +58,8 @@ export class AuthService {
       }),
       catchError(error => {
         return of({
-          type: error.status === 500 ? "Server_Error" : "Invalid_Password", 
-          message: error.status === 500 ? "Server error" : "Błędne Hasło"},
+          type: error.status === 500 ? "serverError" : "invalidPassword", 
+          message: error.status === 500 ? "Błąd serwera" : "Błędne Hasło"},
         )
       })
     )
@@ -82,13 +82,16 @@ export class AuthService {
           return { type:  'success' }
         } 
         else {
-          return { type: 'error', message: 'Unknow error'}
+          return { type: 'error', message: response.message}
         }
       }),
       catchError(error => {
         if(error.status === 409){
-          return of({ type: 'invalidEmail', message: 'Email already exists'})
-        } 
+          return of({ 
+            type: 'invalidEmail', 
+            message: 'Taki email już istniejeeeeeee'
+          })
+        }
         return of({ type: 'error', message: 'Server error' });
       })
     );

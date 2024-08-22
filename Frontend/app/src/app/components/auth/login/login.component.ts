@@ -29,8 +29,8 @@ export class LoginComponent {
     // Change passwords attributes when a user click on the img
     this.passwordType = this.passwordType === 'password' ? 'text' : 'password'
     this.passwordSrc = this.passwordSrc === './../../../assets/img/eye.svg' ? './../../../assets/img/eye-slash.svg' : './../../../assets/img/eye.svg'
-    this.passwordAlt = this.passwordAlt === 'Show Password' ? 'Hide Password' : 'ShowPassword'
-    this.passwordTitle = this.passwordTitle === 'Show Password' ? 'Hide Password' : 'ShowPassword'
+    this.passwordAlt = this.passwordAlt === 'Show Password' ? 'Hide Password' : 'Show Password'
+    this.passwordTitle = this.passwordTitle === 'Show Password' ? 'Hide Password' : 'Show Password'
   }
   
   
@@ -65,12 +65,13 @@ export class LoginComponent {
             setTimeout(() => window.location.reload(), 1500);
             break
           
-          case 'Invalid_Password':
+          case 'invalidPassword':
             this.invalidPassword = true
             this.invalidEmail = false
             this.passwordMessage = response.message
             break
-          case 'Server_Error':
+
+          case 'serverError':
             this.invalidPassword = true
             this.invalidEmail = false
             this.passwordMessage = response.message
@@ -81,15 +82,17 @@ export class LoginComponent {
       
 
     } 
-    else if(!validateEmail) {
+    if(!validateEmail) {
       this.invalidEmail = true
       this.emailMessage = "Błędny email"
-      this.invalidPassword = false
-    } 
-    else if(!validatePassword){
+    } else {
+      this.invalidEmail = false
+    }
+    if(!validatePassword){
       this.invalidPassword = true
       this.passwordMessage = `Twoje hasło nie spełnia warunków bezpieczeństwa`
-      this.invalidEmail = false
+    } else {
+      this.invalidPassword = false
     }
   }
   
