@@ -1,17 +1,13 @@
 .nav {
   width: 170px;
-  height: calc(100vh - 104px);
+  height: calc(100vh - 120px);
   display: flex;
   flex-direction: column;
   padding: 1em;
   color: white;
   font-weight: 560;
   z-index: 1000;
-  background: linear-gradient(
-    180deg,
-    #394357,
-    #252D3A70 
-  );
+  background: #212121 ;
 
 }
 .hide-nav {
@@ -37,6 +33,10 @@
   
   a{
     cursor: pointer;
+
+    &:hover {
+      color: #E74C3C;
+    }
   }
   p {
     display: none;
@@ -50,6 +50,7 @@
 @media screen and (max-width: 500px) {
   .show-nav {
     width: 100vw;
+    height: 100vh;
     align-items: center;
   }
 
