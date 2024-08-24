@@ -49,7 +49,10 @@ export class AuthService {
     return this.http.post<any>(url, body).pipe(
       map(response => {
         if(response.success){
-          sessionStorage.setItem('token', response.token)
+          sessionStorage.setItem('token', response.authToken)
+          if(response.isAuthorized){
+            sessionStorage.setItem('tokenAuth', response.authorizedToken)
+          }
           return { type: 'success', message: response.message }
         } 
         else {
@@ -76,7 +79,6 @@ export class AuthService {
 
     return this.http.post<any>(url, body).pipe(
       map(response => {
-
         if(response.success){
           sessionStorage.setItem('token', response.token)
           return { type:  'success' }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SharedModule } from '../../../modules/shared.module';
 
 @Component({
@@ -10,7 +10,24 @@ import { SharedModule } from '../../../modules/shared.module';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
+  
+  isAuthorized!: boolean;
+  async ngOnInit() {
+    if(typeof window !== 'undefined'){
+      const authToken = await sessionStorage.getItem('tokenAuth')
+      if(authToken){
+        const authTokenObjectPayload =  JSON.parse(atob(authToken.split('.')[1]));
+        console.log(authTokenObjectPayload)
+        if(authTokenObjectPayload.isAdmin){
+          console.log(authTokenObjectPayload.isAdmin)
+          this.isAuthorized = true
+        }
+      } else if(!authToken){
+        this.isAuthorized = false
+      }
+    }
+  }
   
   isActive: boolean = true;
   
@@ -20,13 +37,14 @@ export class HeaderComponent {
   hideNav() {
     this.isActive = false;
   }
-  isAuthorized: boolean = true;
+
+
   
   logOut() {
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('tokenAuth')
     document.body.style.cursor = 'wait';
     
     setTimeout(() => window.location.reload(), 1500);
-
   }
 }

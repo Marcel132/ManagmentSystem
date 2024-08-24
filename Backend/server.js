@@ -24,10 +24,13 @@ MongoClient.connect(dbConfig.url, { useNewUrlParser: true, useUnifiedTopology: t
 .then(client => {
   
   const db = client.db();
-  const usersCollection = db.collection('users');
+  const collections = {
+    users: db.collection('users'),
+    isAuthorized: db.collection('isAuthorized')
+  }
 
 
-  app.use('/v01/api/auth', routes.auth(usersCollection))
+  app.use('/v01/api/auth', routes.auth(collections))
 
 
 

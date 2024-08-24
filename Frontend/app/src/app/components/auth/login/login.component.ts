@@ -58,8 +58,6 @@ export class LoginComponent {
         switch(response.type) {
           case 'success':
             this.validData = true
-            this.invalidEmail = false
-            this.invalidPassword = false
             document.body.style.cursor = 'wait';
 
             setTimeout(() => window.location.reload(), 1500);
@@ -67,13 +65,11 @@ export class LoginComponent {
           
           case 'invalidPassword':
             this.invalidPassword = true
-            this.invalidEmail = false
             this.passwordMessage = response.message
             break
 
           case 'serverError':
             this.invalidPassword = true
-            this.invalidEmail = false
             this.passwordMessage = response.message
             break
 

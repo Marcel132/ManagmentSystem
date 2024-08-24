@@ -6,7 +6,7 @@ import { SettingsComponent } from './components/common/settings/settings.compone
 import { HomeComponent } from './components/common/home/home.component';
 import { ResourcesComponent } from './components/common/resources/resources.component';
 import { CreateResourceComponent } from './components/common/create-resource/create-resource.component';
-import { AdminComponent } from './admin/admin.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'signup', pathMatch: 'full' },
@@ -20,7 +20,7 @@ export const routes: Routes = [
   {path: 'settings', component: MainComponent, children: [
     {path: '', component: SettingsComponent}
   ]},
-  {path: 'admin', component: MainComponent, children: [
+  {path: 'admin', component: AdminComponent, children: [
     {path: '', component: AdminComponent},
   ]},
 ];

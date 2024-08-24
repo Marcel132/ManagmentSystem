@@ -1,6 +1,6 @@
 .nav {
   width: 170px;
-  height: calc(100vh - 120px);
+  height: 100vh;
   display: flex;
   flex-direction: column;
   padding: 1em;
@@ -42,6 +42,9 @@
     display: none;
   }
 }
+.mobile-logo{
+  display: none;
+}
 .toogle-nav {
   text-align-last: left;
   cursor: pointer;
@@ -52,6 +55,10 @@
     width: 100vw;
     height: 100vh;
     align-items: center;
+  }
+
+  .mobile-logo{
+    display: block;
   }
 
   .hide-nav {
@@ -72,5 +79,11 @@
   }
   .content {
     display: none;
+  }
+
+  .toogle-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
