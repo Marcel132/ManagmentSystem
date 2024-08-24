@@ -1,13 +1,12 @@
 .nav {
   width: 170px;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   padding: 1em;
   color: white;
   font-weight: 560;
-  z-index: 1000;
-  background: #212121 ;
+  background: #212121;
 
 }
 .hide-nav {

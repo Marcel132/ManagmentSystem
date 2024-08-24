@@ -9,12 +9,16 @@ import { Title } from '@angular/platform-browser';
   styleUrl: './settings.component.scss'
 })
 export class SettingsComponent implements OnInit{
-
+password: any;
+  
   constructor(
     private title: Title,
   ) {}
-
+  
   ngOnInit() {
     this.title.setTitle('Ustawienia')
   }
+  email: any;
+  createdAt: any;
+  username: any;
 }
