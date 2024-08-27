@@ -4,8 +4,8 @@
     <h2>Publiczne informacje</h2>
 
     <span class="group">
-      <p>Nawa użytkownika: </p><strong>{{username}}</strong> 
-      <button class='change-button'>Zmień</button>
+      <p>Nawa użytkownika: </p><strong>{{username}} </strong> 
+      <button class='change-button' (click)="changeUsername()">Zmień</button>
     </span>
 
     <span class="group">
@@ -25,10 +25,6 @@
       <p>Email: </p> <strong>{{email}}</strong>
     </span>
 
-    <span class="group">
-      <p>Hasło: </p> <strong> {{password}} </strong>
-      <button class='change-button'>Zmień</button>
-    </span>
     <span class="group">
       <p>Hasło: </p> <strong> {{password}} </strong>
       <button class='change-button'>Zmień</button>

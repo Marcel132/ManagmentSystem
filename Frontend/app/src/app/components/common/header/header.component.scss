@@ -1,6 +1,5 @@
 .nav {
   width: 170px;
-  height: 100%;
   display: flex;
   flex-direction: column;
   padding: 1em;
@@ -23,7 +22,6 @@
   text-align: justify;
   padding: 1em 0;
 
-  
   img {
     width: 1.41em;
     margin-right: 0.4rem;
@@ -31,8 +29,6 @@
   }
   
   a{
-    cursor: pointer;
-
     &:hover {
       color: #E74C3C;
     }
@@ -41,6 +37,7 @@
     display: none;
   }
 }
+
 .mobile-logo{
   display: none;
 }
@@ -50,9 +47,10 @@
 }
 
 @media screen and (max-width: 500px) {
-  .show-nav {
+  .nav {
     width: 100vw;
-    height: 100vh;
+  }
+  .show-nav {
     align-items: center;
   }
 
@@ -63,7 +61,6 @@
   .hide-nav {
     align-items: center;
     justify-content: center;
-    width: 100vw;
     height: 50px;
   }
 
@@ -76,10 +73,6 @@
       letter-spacing: .132em;
     }
   }
-  .content {
-    display: none;
-  }
-
   .toogle-nav{
     display: flex;
     justify-content: space-between;

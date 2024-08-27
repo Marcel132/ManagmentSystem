@@ -18,7 +18,6 @@ export class HeaderComponent implements OnInit{
       const authToken = await sessionStorage.getItem('tokenAuth')
       if(authToken){
         const authTokenObjectPayload =  JSON.parse(atob(authToken.split('.')[1]));
-        console.log(authTokenObjectPayload)
         if(authTokenObjectPayload.isAdmin){
           console.log(authTokenObjectPayload.isAdmin)
           this.isAuthorized = true

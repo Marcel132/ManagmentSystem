@@ -76,6 +76,8 @@ export class AuthService {
       acceptedRules: userData.acceptedRules,
       createdAt: userData.createdAt
     }
+    console.log(body)
+    console.log(url)
 
     return this.http.post<any>(url, body).pipe(
       map(response => {
@@ -91,9 +93,10 @@ export class AuthService {
         if(error.status === 409){
           return of({ 
             type: 'invalidEmail', 
-            message: 'Taki email już istniejeeeeeee'
+            message: 'Taki email już istnieje'
           })
         }
+        console.log(error)
         return of({ type: 'error', message: 'Server error' });
       })
     );

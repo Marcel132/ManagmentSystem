@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { MainService } from '../../main/main.service';
 
 @Component({
   selector: 'app-settings',
@@ -9,16 +10,24 @@ import { Title } from '@angular/platform-browser';
   styleUrl: './settings.component.scss'
 })
 export class SettingsComponent implements OnInit{
-password: any;
+  
+  password: any;
+  email: string = ''
+  createdAt: any;
+  username: any;
   
   constructor(
     private title: Title,
+    private mainService: MainService
   ) {}
   
   ngOnInit() {
     this.title.setTitle('Ustawienia')
+    
+    this.email === '' ? this.email = 'Brak emaila' :this.email = 'EMail'
   }
-  email: any;
-  createdAt: any;
-  username: any;
+  changeUsername() {
+    this.mainService.changeUsername()
+  }
+
 }

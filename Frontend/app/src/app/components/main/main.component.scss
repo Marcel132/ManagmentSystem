@@ -2,42 +2,37 @@
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: row;
 }
 
+.navbar {
+  min-height: 100%;
+  background: #212121; // Double background-color (here and in header.component), beacuse one background would ruin a design ;
+}
 
 .wrapper {
   width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.content {
-  width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #FAFAFA;
-
-  &::ng-deep > * {
-    width: 90%;
-    height: 100%;
-  }
 }
 
+.content {
+  width: 90%;
+}
 .footer {
   width: 100%;
-  background: #424242;
-  color: #fefefe
+  background-color: #f2f2f2;
 }
 
 @media screen and (max-width: 500px) {
-  .container {
-    flex-direction: column;
+  .navbar {
+    background-color: inherit;
   }
 
-  .footer{
-    position: relative;
+  .container {
+    flex-direction: column;
   }
 }

@@ -6,6 +6,7 @@ import { HomeComponent } from '../common/home/home.component';
 import { ResourcesComponent } from '../common/resources/resources.component';
 import { SettingsComponent } from '../common/settings/settings.component';
 import { CreateResourceComponent } from '../common/create-resource/create-resource.component';
+import { MainService } from './main.service';
 
 
 
@@ -27,6 +28,9 @@ import { CreateResourceComponent } from '../common/create-resource/create-resour
     ResourcesComponent,
     SettingsComponent,
     CreateResourceComponent
+  ],
+  providers: [
+    MainService
   ]
 })
 export class MainModule { }
