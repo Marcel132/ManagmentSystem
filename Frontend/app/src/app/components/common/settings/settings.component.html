@@ -5,7 +5,7 @@
 
     <span class="group">
       <p>Nawa użytkownika: </p><strong>{{username}} </strong> 
-      <button class='change-button' (click)="changeUsername()">Zmień</button>
+      <button class='change-button' (click)="toogleChangeUsernameForms()">Zmień</button>
     </span>
 
     <span class="group">
@@ -46,4 +46,25 @@
 
     <span class="group"></span>
   </section>
+</div>
+
+<div class='change-forms' *ngIf="usernameForms">
+  <form class="username-form">
+    <div class="form-group">
+      <span class="inputs">
+        <label for="new-username">Nowa nazwa:</label>
+        <input 
+        type="text"
+        name='new-username'
+        id='new-username'
+        placeholder='Nowa nazwa'
+        [(ngModel)]='newUsername'
+        >
+      </span>
+    </div>
+    <div class="form-group">
+      <button class='accept' (click)="changeUsername(newUsername)">Zatwierdź</button>
+      <button class='cancel' (click)="toogleChangeUsernameForms()">Anuluj</button>
+    </div>
+  </form>
 </div>

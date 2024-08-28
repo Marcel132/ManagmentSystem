@@ -19,7 +19,6 @@ export class HeaderComponent implements OnInit{
       if(authToken){
         const authTokenObjectPayload =  JSON.parse(atob(authToken.split('.')[1]));
         if(authTokenObjectPayload.isAdmin){
-          console.log(authTokenObjectPayload.isAdmin)
           this.isAuthorized = true
         }
       } else if(!authToken){
