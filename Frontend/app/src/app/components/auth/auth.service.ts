@@ -77,7 +77,6 @@ export class AuthService {
       createdAt: userData.createdAt
     }
     console.log(body)
-    console.log(url)
 
     return this.http.post<any>(url, body).pipe(
       map(response => {
@@ -90,7 +89,10 @@ export class AuthService {
         }
       }),
       catchError(error => {
-        if(error.status === 409){
+        if (error.status === 404) {
+          console.error('Endpoint not found:', error.message);
+        }
+        else if(error.status === 409){
           return of({ 
             type: 'invalidEmail', 
             message: 'Taki email już istnieje'
