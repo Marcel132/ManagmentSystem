@@ -5,7 +5,7 @@
 
     <span class="group">
       <p>Nawa użytkownika: </p><strong>{{username}} </strong> 
-      <button class='change-button' (click)="toogleChangeUsernameForms()">Zmień</button>
+      <button class='change-button' (click)="toogleUsernameForm()">Zmień</button>
     </span>
 
     <span class="group">
@@ -27,7 +27,7 @@
 
     <span class="group">
       <p>Hasło: </p> <strong> {{password}} </strong>
-      <button class='change-button'>Zmień</button>
+      <button class='change-button' (click)="tooglePasswordForm()">Zmień</button>
     </span>
 
     
@@ -48,8 +48,8 @@
   </section>
 </div>
 
-<div class='change-forms' *ngIf="usernameForms">
-  <form class="username-form">
+<div class='change-forms' *ngIf="usernameForm">
+  <form class="form">
     <div class="form-group">
       <span class="inputs">
         <label for="new-username">Nowa nazwa:</label>
@@ -65,7 +65,32 @@
     </div>
     <div class="form-group">
       <button class='accept' (click)="changeUsername(newUsername)">Zatwierdź</button>
-      <button class='cancel' (click)="toogleChangeUsernameForms()">Anuluj</button>
+      <button class='cancel' (click)="toogleUsernameForm()">Anuluj</button>
+    </div>
+
+    <div class="form-group">
+      {{serverMessage}}
+    </div>
+  </form>
+</div>
+
+<div class='change-forms' *ngIf="passwordForm">
+  <form class="form">
+    <div class="form-group">
+      <span class="inputs">
+        <label for="new-password">Nowe hasło:</label>
+        <input 
+        type="text"
+        name='new-password'
+        id='new-password'
+        placeholder='Nowe hasło'
+        [(ngModel)]='newPassword'
+        >
+      </span>
+    </div>
+    <div class="form-group">
+      <button class='accept' (click)="changePassword(newPassword)">Zatwierdź</button>
+      <button class='cancel' (click)="tooglePasswordForm()">Anuluj</button>
     </div>
 
     <div class="form-group">

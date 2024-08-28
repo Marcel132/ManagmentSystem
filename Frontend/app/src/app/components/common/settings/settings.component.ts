@@ -18,9 +18,11 @@ export class SettingsComponent implements OnInit{
   email!: string
   createdAt!: string;
   username!: string;
-  usernameForms: boolean = false;
+  usernameForm: boolean = false;
+  passwordForm: boolean = false
   newUsername!: string;
-serverMessage: any;
+  serverMessage: any;
+  newPassword: any;
   
   constructor(
     private title: Title,
@@ -47,9 +49,19 @@ serverMessage: any;
       }
     }
   }
-  toogleChangeUsernameForms() {
-    this.usernameForms = !this.usernameForms
-    if(this.usernameForms){
+  toogleUsernameForm() {
+    this.usernameForm = !this.usernameForm
+    if(this.usernameForm){
+      document.body.classList.add('scroll-locked')
+    } else {
+      this.newUsername = ''
+      this.serverMessage = ''
+      document.body.classList.remove('scroll-locked')
+    }
+  }
+  tooglePasswordForm(){
+    this.passwordForm = !this.passwordForm
+    if(this.passwordForm){
       document.body.classList.add('scroll-locked')
     } else {
       this.newUsername = ''
@@ -77,6 +89,29 @@ serverMessage: any;
           }
         }
       })
+    }
+  }
+  async changePassword(password: string) {
+    const validatePassword = this.mainService.validatePassword(password)
+    if(validatePassword){
+      this.serverMessage = ''
+      const token = sessionStorage.getItem('token')
+      if(token){
+        await this.mainService.changePassword(token, password).subscribe({
+          next: (res) => {
+            if(res.updated){
+              this.serverMessage = res.message
+              setTimeout(()=> window.location.reload(), 1500)
+            }
+          },
+          error: (err) => {
+            console.log(err)
+          }
+        })
+      }
+    }
+    if(!validatePassword){
+      this.serverMessage = 'Twoje hasło nie spełnia warunków bezpieczeństwa'
     }
   }
   
