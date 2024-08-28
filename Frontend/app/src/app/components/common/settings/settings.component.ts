@@ -20,6 +20,7 @@ export class SettingsComponent implements OnInit{
   username!: string;
   usernameForms: boolean = false;
   newUsername!: string;
+serverMessage: any;
   
   constructor(
     private title: Title,
@@ -48,10 +49,35 @@ export class SettingsComponent implements OnInit{
   }
   toogleChangeUsernameForms() {
     this.usernameForms = !this.usernameForms
+    if(this.usernameForms){
+      document.body.classList.add('scroll-locked')
+    } else {
+      this.newUsername = ''
+      this.serverMessage = ''
+      document.body.classList.remove('scroll-locked')
+    }
   }
-  changeUsername(username: string) {
-    console.log(username)
-    // this.mainService.changeUsername(username)
+  async changeUsername(username: string) {
+    const token = sessionStorage.getItem('token')
+    if(token){
+      await this.mainService.changeUsername(token, username).subscribe({
+        next: (res) =>{
+          if(res.updated){
+            this.serverMessage = res.message
+            setTimeout(()=> window.location.reload(), 1500)
+          }
+        },
+        error: (err) => {
+          if(err.status === 409){
+            this.serverMessage = 'Nazwa użytkownika już istnieje'
+            console.log('Username is already taken')
+          } else if(err.status === 400) {
+            this.serverMessage === err.message
+            console.log(err.message)
+          }
+        }
+      })
+    }
   }
   
 }

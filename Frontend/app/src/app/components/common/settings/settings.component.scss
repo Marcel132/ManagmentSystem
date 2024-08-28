@@ -1,56 +1,69 @@
 .settings-wrapper {
   width: 100%;
+  max-width: 800px;
   margin: 1rem auto;
-  border-radius: 0px;
+  border-radius: 8px;
   box-shadow: 1px 1px 10px #857777;
+  padding: 1rem;
 }
 
 .settings-section {
   width: 100%;
-  display: flex;
-  flex-direction: column;
   margin: 2rem 0;
 
-  .group {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-wrap: wrap;
-    margin: 1rem;
-  }
-
   h2 {
-    margin: 2rem 0;
+    margin: 1rem 0;
     text-align: center;
     letter-spacing: 2.345px;
     font-weight: 700;
   }
 
-  p{
-    width: 30%;
-    display: inline-block;
-    opacity: 0.8;
-    padding: 1rem 0;
-    font-style: italic;
-    border-bottom: 1px solid #21212145;
-  }
+  .group {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
 
-  strong {
-    width: calc(100% - 80px - 1rem);
-    display: inline-block;
-    padding: 1rem;
-  }
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
 
-  .change-button {
-    width: 80px;
-    border: none;
-    background-color: #00f100;
-    padding: 0.5rem;
-    cursor: pointer;
-  }
+    p {
+      opacity: 0.8;
+      font-style: italic;
+      border-bottom: 1px solid #21212145;
+      padding: 0.5rem 0;
+    }
 
+    strong {
+      justify-self: start;
+    }
+
+    .change-button, .delete-account {
+      width: auto;
+      min-width: 80px;
+      border: none;
+      background-color: #00f100;
+      padding: 0.5rem;
+      cursor: pointer;
+      justify-self: start;
+
+      @media (max-width: 768px) {
+        justify-self: center;
+      }
+    }
+
+    .delete-account {
+      background-color: #f10000;
+      color: white;
+    }
+  }
 }
-.change-forms{
+
+.change-forms {
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
@@ -59,47 +72,39 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  position: fixed;
-  background-color: #00000045;
+  background-color: rgba(0, 0, 0, 0.45);
 
   .username-form {
-    width: 300px;
-    height: 300px;
+    width: 90%;
+    max-width: 300px;
+    padding: 2rem;
     border-radius: 15px;
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
     background-color: #f2f2f2;
 
     .form-group {
-      .inputs {
+      margin-bottom: 1rem;
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      input[type='text'] {
         width: 100%;
-        display: flex;
-        justify-content: center;  
-    
-        label {
-          width: 25%;
-          display: inline-block;
-          text-align: center;
-        }
-        input[type='text']{
-          width: calc(75% - 0.3rem);
-          font-size: 16px;
-          border: none;
-          border-bottom: 1px solid #000;
-          outline: none;
-          overflow: hidden;
-          padding: 0.3rem;
-          background-color: inherit;
-        }
+        font-size: 16px;
+        border: none;
+        border-bottom: 1px solid #000;
+        outline: none;
+        padding: 0.3rem;
+        background-color: inherit;
       }
 
       button {
-        margin: 2rem;
-        padding: .5rem;
+        margin: 0.5rem;
+        padding: 0.5rem 1rem;
         font-size: 14px;
-        background-color: inherit;
         border: none;
         cursor: pointer;
       }
@@ -107,8 +112,10 @@
       .accept {
         background-color: #00f100;
       }
+
       .cancel {
         background-color: #f10000;
+        color: white;
       }
     }
   }

@@ -19,19 +19,18 @@ export class MainService {
 
     return this.http.get<any>(url, {headers})
   }
-  changeUsername(username: string) {
-    const url = 'http://localhost:300/v01/api/users/settings/change_username'
+
+  changeUsername(token: string, username: string): Observable<any> {
+    const url = 'http://localhost:3000/v01/api/users/settings/change_username'
     const body = {
       username: username   
     }
+    const headers = {
+      'Authorization': `Bearer ${token}`
+    }
 
-    return this.http.post<any>(url, body).pipe(
-      map(response => {
+    console.log(url, body)
 
-      }),
-      catchError(error => {
-        return of()
-      })
-    )
+    return this.http.put<any>(url, body, {headers})
   }
 }

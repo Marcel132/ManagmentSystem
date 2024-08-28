@@ -33,6 +33,10 @@ html, body {
   min-height: 100%;
   font-family: 'Lato', "Roboto", "Monsterrat";
   font-size: 15px;
+
+  & .scroll-locked {
+    overflow: hidden;
+  }
 }
 
 a{
