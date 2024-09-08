@@ -21,8 +21,9 @@ export class SettingsComponent implements OnInit{
   usernameForm: boolean = false;
   passwordForm: boolean = false
   newUsername!: string;
-  serverMessage: any;
-  newPassword: any;
+  serverMessage!: string;
+  newPassword!: string;
+  deleteAccount: boolean = false;
   
   constructor(
     private title: Title,
@@ -69,6 +70,15 @@ export class SettingsComponent implements OnInit{
       document.body.classList.remove('scroll-locked')
     }
   }
+  toogleDeleteAccount() {
+    this.deleteAccount = !this.deleteAccount
+    if(this.deleteAccount){
+      document.body.classList.add('scroll-locked')
+    } else {
+      document.body.classList.remove('scroll-locked')
+    }
+  }
+  
   async changeUsername(username: string) {
     const token = sessionStorage.getItem('token')
     if(token){
@@ -80,14 +90,18 @@ export class SettingsComponent implements OnInit{
           }
         },
         error: (err) => {
-          if(err.status === 409){
-            this.serverMessage = 'Nazwa użytkownika już istnieje'
-            console.log('Username is already taken')
-          } else if(err.status === 400) {
-            this.serverMessage === err.message
-            console.log(err.message)
+          
+          if(err.error && err.error.message){
+            if(err.status === 400){
+              this.serverMessage = err.error.message
+            }
+            if(err.status === 409) {    
+              this.serverMessage = err.error.message
+            }
+          } else {
+            this.serverMessage = 'Nieoczekiwany błąd'
           }
-        }
+        }	
       })
     }
   }
@@ -114,5 +128,25 @@ export class SettingsComponent implements OnInit{
       this.serverMessage = 'Twoje hasło nie spełnia warunków bezpieczeństwa'
     }
   }
-  
+  async funcDeleteAccount() {
+    this.serverMessage = ''
+    const token = sessionStorage.getItem('token')
+    if(token){
+      this.mainService.deleteAccount(token).subscribe({
+        next: (res) => {
+          if(res.deleted){
+            this.serverMessage = res.message
+            sessionStorage.removeItem('token')
+            sessionStorage.removeItem('tokenAuth')
+            setTimeout(()=> window.location.reload(), 1500)
+          }
+        },
+        error: (err) => {
+          this.serverMessage = err.err.message
+          console.log(err)
+        }
+      })
+    }
+  }
+
 }

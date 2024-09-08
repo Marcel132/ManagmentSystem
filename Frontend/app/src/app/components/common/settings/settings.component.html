@@ -41,16 +41,16 @@
     <h2>Usuń konto</h2>
     
     <span class="group">
-      <button class="delete-account">Usuń konto</button>
+      <button class="delete-account" (click)="toogleDeleteAccount()">Usuń konto</button>
     </span>
 
     <span class="group"></span>
   </section>
 </div>
 
-<div class='change-forms' *ngIf="usernameForm">
-  <form class="form">
-    <div class="form-group">
+<div class='modal-centered' *ngIf="usernameForm">
+  <form class="modal-box">
+    <div class="data-group">
       <span class="inputs">
         <label for="new-username">Nowa nazwa:</label>
         <input 
@@ -63,20 +63,20 @@
         >
       </span>
     </div>
-    <div class="form-group">
+    <div class="data-group">
       <button class='accept' (click)="changeUsername(newUsername)">Zatwierdź</button>
       <button class='cancel' (click)="toogleUsernameForm()">Anuluj</button>
     </div>
 
-    <div class="form-group">
+    <div class="data-group">
       {{serverMessage}}
     </div>
   </form>
 </div>
 
-<div class='change-forms' *ngIf="passwordForm">
-  <form class="form">
-    <div class="form-group">
+<div class='modal-centered' *ngIf="passwordForm">
+  <form class="modal-box">
+    <div class="data-group">
       <span class="inputs">
         <label for="new-password">Nowe hasło:</label>
         <input 
@@ -88,13 +88,26 @@
         >
       </span>
     </div>
-    <div class="form-group">
+    <div class="data-group">
       <button class='accept' (click)="changePassword(newPassword)">Zatwierdź</button>
       <button class='cancel' (click)="tooglePasswordForm()">Anuluj</button>
     </div>
 
-    <div class="form-group">
+    <div class="data-group">
       {{serverMessage}}
     </div>
   </form>
+</div>
+
+<div class="modal-centered" *ngIf="deleteAccount">
+  <div class="modal-box">
+    <div class="data-group">
+      <button class='accept' (click)="funcDeleteAccount()">Zatwierdź</button>
+      <button class='cancel' (click)="toogleDeleteAccount()">Anuluj</button>
+    </div>
+    <i>Uwaga! Ta operacja jest nieodwracalna</i>
+    <div class="data-group">
+      {{serverMessage}}
+    </div>
+  </div>
 </div>

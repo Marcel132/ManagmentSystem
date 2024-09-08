@@ -68,7 +68,7 @@
   }
 }
 
-.change-forms {
+.modal-centered {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -80,8 +80,7 @@
   z-index: 1000;
   background-color: rgba(0, 0, 0, 0.45);
 
-  .form {
-    width: 90%;
+  .modal-box {
     max-width: 300px;
     padding: 2rem;
     border-radius: 15px;
@@ -89,40 +88,43 @@
     flex-direction: column;
     background-color: #f2f2f2;
 
-    .form-group {
-      margin-bottom: 1rem;
+    i {
+      font-size: 14px;
+    }
 
-      label {
-        display: block;
-        margin-bottom: 0.5rem;
-      }
+  }
+  .data-group {
 
-      input[type='text'] {
-        width: 100%;
-        font-size: 16px;
-        border: none;
-        border-bottom: 1px solid #000;
-        outline: none;
-        padding: 0.3rem;
-        background-color: inherit;
-      }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
 
-      button {
-        margin: 0.5rem;
-        padding: 0.5rem 1rem;
-        font-size: 14px;
-        border: none;
-        cursor: pointer;
-      }
+    input[type='text'] {
+      width: 100%;
+      font-size: 16px;
+      border: none;
+      border-bottom: 1px solid #000;
+      outline: none;
+      padding: 0.3rem;
+      background-color: inherit;
+    }
 
-      .accept {
-        background-color: #00f100;
-      }
+    button {
+      margin: 0.5rem;
+      padding: 0.5rem 1rem;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+    }
 
-      .cancel {
-        background-color: #f10000;
-        color: white;
-      }
+    .accept {
+      background-color: #00f100;
+    }
+
+    .cancel {
+      background-color: #f10000;
+      color: white;
     }
   }
 }

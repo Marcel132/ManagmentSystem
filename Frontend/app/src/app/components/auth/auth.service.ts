@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EmailValidationResult, PasswordValidationResult } from './auth.interface'
 import { catchError, map, Observable, of } from 'rxjs';
+import { ApiConfig } from '../api.config';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +40,7 @@ export class AuthService {
 
 
   loginUser(email: string, password: string){
-    const url = 'http://localhost:3000/v01/api/auth/login'
+    const url = ApiConfig.apiLogin
     const body = {
       email: email,
       password: password
@@ -69,7 +69,7 @@ export class AuthService {
   }
 
   registerUser(userData: any): Observable<{ type: string; message?: string }>{
-    const url = 'http://localhost:3000/v01/api/auth/signup'
+    const url = ApiConfig.apiSignup
     const body = {
       email: userData.email,
       password: userData.password,

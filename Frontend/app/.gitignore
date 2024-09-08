@@ -1,6 +1,9 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 
+# config files
+/src/app/components/api.config.ts
+
 /.angular
 /src/assets/fonts
 /src/assets/img
