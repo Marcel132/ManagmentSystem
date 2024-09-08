@@ -5,7 +5,6 @@ import { FooterComponent } from '../common/footer/footer.component';
 import { HomeComponent } from '../common/home/home.component';
 import { ResourcesComponent } from '../common/resources/resources.component';
 import { SettingsComponent } from '../common/settings/settings.component';
-import { CreateResourceComponent } from '../common/create-resource/create-resource.component';
 import { MainService } from './main.service';
 
 
@@ -19,7 +18,6 @@ import { MainService } from './main.service';
     HomeComponent,
     ResourcesComponent,
     SettingsComponent,
-    CreateResourceComponent
   ], 
   exports: [
     HeaderComponent,
@@ -27,7 +25,6 @@ import { MainService } from './main.service';
     HomeComponent,
     ResourcesComponent,
     SettingsComponent,
-    CreateResourceComponent
   ],
   providers: [
     MainService

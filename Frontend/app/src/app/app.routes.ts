@@ -5,7 +5,6 @@ import { MainComponent } from './components/main/main.component';
 import { SettingsComponent } from './components/common/settings/settings.component';
 import { HomeComponent } from './components/common/home/home.component';
 import { ResourcesComponent } from './components/common/resources/resources.component';
-import { CreateResourceComponent } from './components/common/create-resource/create-resource.component';
 import { AdminComponent } from './components/admin/admin.component';
 
 export const routes: Routes = [
@@ -15,7 +14,6 @@ export const routes: Routes = [
   {path: 'home', component: MainComponent, children: [
     {path: '', component: HomeComponent},
     {path: 'resources', component: ResourcesComponent},
-    {path: 'create-new-resource', component: CreateResourceComponent},
   ]},
   {path: 'settings', component: MainComponent, children: [
     {path: '', component: SettingsComponent}

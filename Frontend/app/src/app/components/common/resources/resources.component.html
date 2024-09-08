@@ -1,1 +1,27 @@
-<p>resources works!</p>
+<div class="wrapper">
+  <div class="add-bar">
+    <div class="add-bar-info">
+      <span>Ilość dostępnego miejsca: {{availableSpace}}</span>
+      <span>Ilość maksymalnego miejsca: {{maxSpace}}</span>
+    </div>
+    <button class='add-bar-button' (click)="addResource()">
+      <span>Dodaj zasób</span>
+      <img src="../../../../assets/img/plus-square.svg" alt="">
+    </button>
+  </div>
+  <div class="content-resources">
+    <div class="content-bar">
+      <span>Sortuj</span>
+      <span>Filtruj</span>
+    </div>
+    <div class="item-box" *ngFor="let item of items">
+      <strong>{{item}}</strong>
+    </div>
+  </div>
+</div>
+
+<div class="error-window" *ngIf="errorWindow">
+  <div class="error-window-message-box">
+    <span>Nie można dodać zasobu! Przekroczono limit!</span>
+  </div>
+</div>  

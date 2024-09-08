@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
         this.isLogged = false
       }
       if(this.isLogged === true){
-        this.router.navigate(['/settings']);
+        this.router.navigate(['/home/resources']);
       } else if(this.isLogged === false){
         this.router.navigate(['/login'])
       }
