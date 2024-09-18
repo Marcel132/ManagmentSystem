@@ -34,14 +34,14 @@ export class MainService {
     this.userData = null
   }
   
-  getUserSettingsData(token: string): Observable<any> {
+  getUserSettingsData(accessToken: string): Observable<any> {
 
-    if(this.userData){
+    if(this.userData != null){
       return of(this.userData)
     }
     const url = ApiConfig.apiSettingsData
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${accessToken}`
     })
     
     return this.http.get<any>(url, {headers}).pipe(
@@ -56,13 +56,13 @@ export class MainService {
     )
   }
   
-  changeUsername(token: string, username: string): Observable<any> {
+  changeUsername(accessToken: string, username: string): Observable<any> {
     const url = ApiConfig.apiChangeUsername
     const body = {
       username: username   
     }
     const headers = {
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${accessToken}`
     }
     
     return this.http.put<any>(url, body, {headers}).pipe(
@@ -79,13 +79,13 @@ export class MainService {
     )
   }
   
-  changePassword(token: string, password: string): Observable<any>{
+  changePassword(accessToken: string, password: string): Observable<any>{
     const url = ApiConfig.apiChangePassword
     const body = {
       password: password
     }
     const headers = {
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${accessToken}`
     }
     return this.http.put<any>(url, body, {headers}).pipe(
       map((res) => {
@@ -100,10 +100,10 @@ export class MainService {
       })
     )
   }
-  deleteAccount(token: string): Observable<any> {
+  deleteAccount(accessToken: string): Observable<any> {
     const url = ApiConfig.apiDeleteAccount
     const headers = {
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${accessToken}`
     }
     return this.http.delete<any>(url, {headers}).pipe(
       map((res) => {

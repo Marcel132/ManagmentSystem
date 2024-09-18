@@ -39,8 +39,9 @@ export class HeaderComponent implements OnInit{
 
   
   logOut() {
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('tokenAuth')
+    sessionStorage.removeItem('accessToken');
+    sessionStorage.removeItem('permissionToken')
+    localStorage.removeItem('refreshToken')
     document.body.style.cursor = 'wait';
     
     setTimeout(() => window.location.reload(), 1500);

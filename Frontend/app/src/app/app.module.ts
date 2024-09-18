@@ -6,6 +6,7 @@ import { MainModule } from './components/main/main.module';
 import { AdminModule } from './components/admin/admin.module';
 import { HttpClientModule, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './interceptors/auth.interceptor';
+import { AuthTokenService } from './interceptors/auth-token.service';
 
 
 
@@ -28,7 +29,8 @@ import { authInterceptor } from './interceptors/auth.interceptor';
     AdminModule,
   ],
   providers: [
-    provideHttpClient(withInterceptors([authInterceptor]))
+    provideHttpClient(withInterceptors([authInterceptor])),
+    AuthTokenService
   ]
 })
 export class AppModule { }

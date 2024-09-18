@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
   
   ngOnInit() {
     if(typeof window !== 'undefined'){
-      if(sessionStorage.getItem('token')){
+      if(sessionStorage.getItem('accessToken')){
         this.isLogged = true;
       } else {
         this.isLogged = false

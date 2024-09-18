@@ -49,9 +49,10 @@ export class AuthService {
     return this.http.post<any>(url, body).pipe(
       map(response => {
         if(response.success){
-          sessionStorage.setItem('token', response.authToken)
+          sessionStorage.setItem('accessToken', response.accessToken)
+          localStorage.setItem('refreshToken', response.refreshToken)
           if(response.isAuthorized){
-            sessionStorage.setItem('tokenAuth', response.authorizedToken)
+            sessionStorage.setItem('tokenAuth', response.permissionToken)
           }
           return { type: 'success', message: response.message }
         } 
@@ -62,7 +63,7 @@ export class AuthService {
       catchError(error => {
         return of({
           type: error.status === 500 ? "serverError" : "invalidPassword", 
-          message: error.status === 500 ? "Błąd serwera" : "Błędne Hasło"},
+          message: error.status === 500 ? `Błąd serwera: ` : "Błędne Hasło"},
         )
       })
     )
@@ -81,7 +82,8 @@ export class AuthService {
     return this.http.post<any>(url, body).pipe(
       map(response => {
         if(response.success){
-          sessionStorage.setItem('token', response.token)
+          sessionStorage.setItem('accessToken', response.accessToken)
+          localStorage.setItem('refreshToken', response.refreshToken)
           return { type:  'success' }
         } 
         else {

@@ -34,15 +34,17 @@ export class SettingsComponent implements OnInit{
     this.title.setTitle('Ustawienia')
     
     if(typeof window !== 'undefined'){
-      const token = sessionStorage.getItem('token')
-      if(token){
-        this.mainService.getUserSettingsData(token).subscribe({
+      const accessToken = sessionStorage.getItem('accessToken')
+      if(accessToken){
+        this.mainService.getUserSettingsData(accessToken).subscribe({
           next: (data) => {
-            if(data){
+            if(data && data.data ){
               this.email = data.data.email || 'Nie można znaleźć emaila'
               this.createdAt = data.data.createdAt || 'dd/mm/yy hh:mm:ss'
               this.username = data.data.username || 'Brak nazwy uzytkownika'
               this.password = '*********'
+            } else {
+              console.log("Error: Cannot read data")
             }
           },
           error: (error) => {
@@ -82,9 +84,9 @@ export class SettingsComponent implements OnInit{
   }
   
   async changeUsername(username: string) {
-    const token = sessionStorage.getItem('token')
-    if(token){
-      this.mainService.changeUsername(token, username).subscribe({
+    const accessToken = sessionStorage.getItem('accessToken')
+    if(accessToken){
+      this.mainService.changeUsername(accessToken, username).subscribe({
         next: (res) =>{
           if(res && res.updated){
             this.serverMessage = res.message
@@ -111,9 +113,9 @@ export class SettingsComponent implements OnInit{
     const validatePassword = this.mainService.validatePassword(password)
     if(validatePassword){
       this.serverMessage = ''
-      const token = sessionStorage.getItem('token')
-      if(token){
-        this.mainService.changePassword(token, password).subscribe({
+      const accessToken = sessionStorage.getItem('accessToken')
+      if(accessToken){
+        this.mainService.changePassword(accessToken, password).subscribe({
           next: (res) => {
             if(res && res.updated){
               this.serverMessage = res.message
@@ -132,14 +134,14 @@ export class SettingsComponent implements OnInit{
   }
   async funcDeleteAccount() {
     this.serverMessage = ''
-    const token = sessionStorage.getItem('token')
-    if(token){
-      this.mainService.deleteAccount(token).subscribe({
+    const accessToken = sessionStorage.getItem('accessToken')
+    if(accessToken){
+      this.mainService.deleteAccount(accessToken).subscribe({
         next: (res) => {
           if(res && res.deleted){
             this.serverMessage = res.message
-            sessionStorage.removeItem('token')
-            sessionStorage.removeItem('tokenAuth')
+            sessionStorage.clear
+            localStorage.clear
             setTimeout(()=> window.location.reload(), 1500)
           }
         },
