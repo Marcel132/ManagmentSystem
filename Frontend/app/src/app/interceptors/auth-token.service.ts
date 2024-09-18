@@ -13,12 +13,13 @@ export class AuthTokenService {
   ) { }
 
   refreshToken(): Observable<any>{
-    const refreshToken = localStorage.getItem('RefreshToken')
-    return this.http.post<any>(ApiConfig.apiRefreshToken, {token: refreshToken})
+    const accessToken = sessionStorage.getItem('accessToken')
+    const refreshToken = localStorage.getItem('refreshToken')
+    return this.http.post<any>(ApiConfig.apiRefreshToken, {accessToken, refreshToken})
   }
 
-  saveNewTokens(accessToken: string, refreshToken: string){
+
+  saveNewToken(accessToken: string){
     sessionStorage.setItem("accessToken", accessToken)
-    localStorage.setItem("RefreshToken", refreshToken)
   }
 }

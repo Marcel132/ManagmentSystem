@@ -100,6 +100,7 @@ export class MainService {
       })
     )
   }
+  
   deleteAccount(accessToken: string): Observable<any> {
     const url = ApiConfig.apiDeleteAccount
     const headers = {

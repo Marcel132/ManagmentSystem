@@ -15,11 +15,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     return next(req);
   }
 
-
-  
   const authTokenService = inject(AuthTokenService)
   const accessToken = sessionStorage.getItem("accessToken")
-
 
   const cloneReq = req.clone({
     setHeaders: {
@@ -33,11 +30,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   return next(cloneReq).pipe(
     catchError((error) => {
       if(error.status === 403){
-        console.log("Status 403")
         return authTokenService.refreshToken().pipe(
           switchMap((res: any) => {
-            authTokenService.saveNewTokens(res.accessToken, res.refreshToken)
-            
+            authTokenService.saveNewToken(res.accessToken)
+            console.log("Refresh success")
             const newRequest = req.clone({
               setHeaders: {
                 'Authorization': `Bearer ${res.accessToken}`
@@ -45,7 +41,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
             })
 
             return next(newRequest)
-
           }),
           catchError((refreshError)=>{
             console.log("Error: Cannot refresh token", refreshError)

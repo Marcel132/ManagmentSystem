@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit{
   isAuthorized!: boolean;
   async ngOnInit() {
     if(typeof window !== 'undefined'){
-      const authToken = await sessionStorage.getItem('tokenAuth')
+      const authToken = await sessionStorage.getItem('permissionToken')
       if(authToken){
         const authTokenObjectPayload =  JSON.parse(atob(authToken.split('.')[1]));
         if(authTokenObjectPayload.isAdmin){

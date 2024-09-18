@@ -52,7 +52,7 @@ export class AuthService {
           sessionStorage.setItem('accessToken', response.accessToken)
           localStorage.setItem('refreshToken', response.refreshToken)
           if(response.isAuthorized){
-            sessionStorage.setItem('tokenAuth', response.permissionToken)
+            sessionStorage.setItem('permissionToken', response.permissionToken)
           }
           return { type: 'success', message: response.message }
         } 
