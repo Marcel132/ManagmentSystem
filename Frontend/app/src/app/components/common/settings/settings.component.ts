@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { MainService } from '../../main/main.service';
-import { SharedModule } from '../../../modules/shared.module';
+import { SharedModule } from '../../../shared.module';
 
 @Component({
   selector: 'app-settings',
@@ -38,10 +38,12 @@ export class SettingsComponent implements OnInit{
       if(token){
         this.mainService.getUserSettingsData(token).subscribe({
           next: (data) => {
-            this.email = data.data.email || 'Nie można znaleźć emaila'
-            this.createdAt = data.data.createdAt || 'dd/mm/yy hh:mm:ss'
-            this.username = data.data.username || 'Brak nazwy uzytkownika'
-            this.password = '*********'
+            if(data){
+              this.email = data.data.email || 'Nie można znaleźć emaila'
+              this.createdAt = data.data.createdAt || 'dd/mm/yy hh:mm:ss'
+              this.username = data.data.username || 'Brak nazwy uzytkownika'
+              this.password = '*********'
+            }
           },
           error: (error) => {
             console.log(error)
@@ -50,7 +52,7 @@ export class SettingsComponent implements OnInit{
       }
     }
   }
-  toogleUsernameForm() {
+  toggleUsernameForm() {
     this.usernameForm = !this.usernameForm
     if(this.usernameForm){
       document.body.classList.add('scroll-locked')
@@ -60,7 +62,7 @@ export class SettingsComponent implements OnInit{
       document.body.classList.remove('scroll-locked')
     }
   }
-  tooglePasswordForm(){
+  togglePasswordForm(){
     this.passwordForm = !this.passwordForm
     if(this.passwordForm){
       document.body.classList.add('scroll-locked')
@@ -70,7 +72,7 @@ export class SettingsComponent implements OnInit{
       document.body.classList.remove('scroll-locked')
     }
   }
-  toogleDeleteAccount() {
+  toggleDeleteAccount() {
     this.deleteAccount = !this.deleteAccount
     if(this.deleteAccount){
       document.body.classList.add('scroll-locked')
@@ -82,9 +84,9 @@ export class SettingsComponent implements OnInit{
   async changeUsername(username: string) {
     const token = sessionStorage.getItem('token')
     if(token){
-      await this.mainService.changeUsername(token, username).subscribe({
+      this.mainService.changeUsername(token, username).subscribe({
         next: (res) =>{
-          if(res.updated){
+          if(res && res.updated){
             this.serverMessage = res.message
             setTimeout(()=> window.location.reload(), 1500)
           }
@@ -111,9 +113,9 @@ export class SettingsComponent implements OnInit{
       this.serverMessage = ''
       const token = sessionStorage.getItem('token')
       if(token){
-        await this.mainService.changePassword(token, password).subscribe({
+        this.mainService.changePassword(token, password).subscribe({
           next: (res) => {
-            if(res.updated){
+            if(res && res.updated){
               this.serverMessage = res.message
               setTimeout(()=> window.location.reload(), 1500)
             }
@@ -124,7 +126,7 @@ export class SettingsComponent implements OnInit{
         })
       }
     }
-    if(!validatePassword){
+    else if(!validatePassword){
       this.serverMessage = 'Twoje hasło nie spełnia warunków bezpieczeństwa'
     }
   }
@@ -134,7 +136,7 @@ export class SettingsComponent implements OnInit{
     if(token){
       this.mainService.deleteAccount(token).subscribe({
         next: (res) => {
-          if(res.deleted){
+          if(res && res.deleted){
             this.serverMessage = res.message
             sessionStorage.removeItem('token')
             sessionStorage.removeItem('tokenAuth')

@@ -5,7 +5,7 @@
 
     <span class="group">
       <p>Nawa użytkownika: </p><strong>{{username}} </strong> 
-      <button class='change-button' (click)="toogleUsernameForm()">Zmień</button>
+      <button class='change-button' (click)="toggleUsernameForm()">Zmień</button>
     </span>
 
     <span class="group">
@@ -27,7 +27,7 @@
 
     <span class="group">
       <p>Hasło: </p> <strong> {{password}} </strong>
-      <button class='change-button' (click)="tooglePasswordForm()">Zmień</button>
+      <button class='change-button' (click)="togglePasswordForm()">Zmień</button>
     </span>
 
     
@@ -41,7 +41,7 @@
     <h2>Usuń konto</h2>
     
     <span class="group">
-      <button class="delete-account" (click)="toogleDeleteAccount()">Usuń konto</button>
+      <button class="delete-account" (click)="toggleDeleteAccount()">Usuń konto</button>
     </span>
 
     <span class="group"></span>
@@ -65,7 +65,7 @@
     </div>
     <div class="data-group">
       <button class='accept' (click)="changeUsername(newUsername)">Zatwierdź</button>
-      <button class='cancel' (click)="toogleUsernameForm()">Anuluj</button>
+      <button class='cancel' (click)="toggleUsernameForm()">Anuluj</button>
     </div>
 
     <div class="data-group">
@@ -90,7 +90,7 @@
     </div>
     <div class="data-group">
       <button class='accept' (click)="changePassword(newPassword)">Zatwierdź</button>
-      <button class='cancel' (click)="tooglePasswordForm()">Anuluj</button>
+      <button class='cancel' (click)="togglePasswordForm()">Anuluj</button>
     </div>
 
     <div class="data-group">
@@ -103,7 +103,7 @@
   <div class="modal-box">
     <div class="data-group">
       <button class='accept' (click)="funcDeleteAccount()">Zatwierdź</button>
-      <button class='cancel' (click)="toogleDeleteAccount()">Anuluj</button>
+      <button class='cancel' (click)="toggleDeleteAccount()">Anuluj</button>
     </div>
     <i>Uwaga! Ta operacja jest nieodwracalna</i>
     <div class="data-group">

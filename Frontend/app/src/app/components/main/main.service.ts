@@ -1,12 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { ApiConfig } from '../api.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MainService {
+
+  private userData: any | null = null;
   
   constructor(
     private http: HttpClient,
@@ -27,14 +29,31 @@ export class MainService {
     return validPassword
     
   }
+
+  private clearUserDataCache(){
+    this.userData = null
+  }
   
   getUserSettingsData(token: string): Observable<any> {
+
+    if(this.userData){
+      return of(this.userData)
+    }
     const url = ApiConfig.apiSettingsData
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     })
     
-    return this.http.get<any>(url, {headers})
+    return this.http.get<any>(url, {headers}).pipe(
+      map((data)=> {
+        this.userData = data
+        return data
+      }),
+      catchError(error=> {
+        console.log("Error: Cannot get user data", error)
+        return of(error)
+      })
+    )
   }
   
   changeUsername(token: string, username: string): Observable<any> {
@@ -46,7 +65,18 @@ export class MainService {
       'Authorization': `Bearer ${token}`
     }
     
-    return this.http.put<any>(url, body, {headers})
+    return this.http.put<any>(url, body, {headers}).pipe(
+      map((res) => {
+        if(res.updated){
+          this.clearUserDataCache()
+        }
+        return res
+      }),
+      catchError((error)=>{
+        console.log("Error: Cannot change username", error)
+        return of(error)
+      })
+    )
   }
   
   changePassword(token: string, password: string): Observable<any>{
@@ -57,13 +87,35 @@ export class MainService {
     const headers = {
       'Authorization': `Bearer ${token}`
     }
-    return this.http.put(url, body, {headers})
+    return this.http.put<any>(url, body, {headers}).pipe(
+      map((res) => {
+        if(res.updated){
+          this.clearUserDataCache()
+        }
+        return res
+      }),
+      catchError((error) => {
+        console.log("Error: Cannot change password", error)
+        return of(error)
+      })
+    )
   }
   deleteAccount(token: string): Observable<any> {
     const url = ApiConfig.apiDeleteAccount
     const headers = {
       'Authorization': `Bearer ${token}`
     }
-    return this.http.delete(url, {headers})
+    return this.http.delete<any>(url, {headers}).pipe(
+      map((res) => {
+        if(res.deleted){
+          this.clearUserDataCache()
+        }
+        return res
+      }),
+      catchError((error) => {
+        console.log("Error: Cannot delete account", error)
+        return of(error)
+      })
+    )
   }
 }
