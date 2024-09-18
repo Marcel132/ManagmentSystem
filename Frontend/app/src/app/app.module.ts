@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 import { AuthModule } from './components/auth/auth.module';
 import { MainModule } from './components/main/main.module';
 import { AdminModule } from './components/admin/admin.module';
-import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './interceptors/auth.interceptor';
 
 
 
@@ -27,7 +28,7 @@ import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/
     AdminModule,
   ],
   providers: [
-    provideHttpClient(withFetch())
+    provideHttpClient(withInterceptors([authInterceptor]))
   ]
 })
 export class AppModule { }
