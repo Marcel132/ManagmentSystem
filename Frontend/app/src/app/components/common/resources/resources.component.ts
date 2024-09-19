@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedModule } from '../../../shared.module';
+import { MainService } from '../../main/main.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-resources',
@@ -11,13 +13,44 @@ import { SharedModule } from '../../../shared.module';
   styleUrl: './resources.component.scss'
 })
 export class ResourcesComponent implements OnInit{
-  items = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  maxSpace: number = 10;
+
+  constructor(
+    private title: Title,
+    private mainService: MainService
+  ){}
+  items: any = [];
+  maxSpace!: number;
   availableSpace: number = this.maxSpace - this.items.length
   errorWindow!: boolean;
   
-  ngOnInit(): void {
-    this.availableSpace= this.maxSpace - this.items.length
+  ngOnInit() {
+    this.title.setTitle('Zasoby')
+    if(typeof window != 'undefined'){
+      this.mainService.getResourcesData().subscribe({
+        next: (res) => {
+          console.log(res)
+          if(res){
+            if(res.hasSub.planUltimate){
+              this.maxSpace = 15
+            } else if(res.hasSub.planPremium){
+              this.maxSpace = 13
+            } else if(res.hasSub.planFree){
+              this.maxSpace = 10
+            }
+
+            let resourcesData = res.data.resources
+
+            resourcesData.forEach((element: any) => {
+              this.items.push(element)
+            });
+
+            console.log(this.items)
+            
+            this.availableSpace = this.maxSpace - this.items.length
+          }
+        }
+      })
+    }
   } 
   
   addResource() {
@@ -35,5 +68,10 @@ export class ResourcesComponent implements OnInit{
       this.items.push(this.items.length + 1)
       this.availableSpace = this.maxSpace - this.items.length
       return true
+    }
+    removeResource() {
+      this.items.pop()
+      this.availableSpace = this.maxSpace - this.items.length
+    }
   }
-}
+  

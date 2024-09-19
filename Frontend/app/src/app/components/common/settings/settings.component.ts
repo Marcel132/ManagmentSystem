@@ -34,24 +34,21 @@ export class SettingsComponent implements OnInit{
     this.title.setTitle('Ustawienia')
     
     if(typeof window !== 'undefined'){
-      const accessToken = sessionStorage.getItem('accessToken')
-      if(accessToken){
-        this.mainService.getUserSettingsData(accessToken).subscribe({
-          next: (data) => {
-            if(data && data.data ){
-              this.email = data.data.email || 'Nie można znaleźć emaila'
-              this.createdAt = data.data.createdAt || 'dd/mm/yy hh:mm:ss'
-              this.username = data.data.username || 'Brak nazwy uzytkownika'
-              this.password = '*********'
-            } else {
-              console.log("Error: Cannot read data")
-            }
-          },
-          error: (error) => {
-            console.log(error)
+      this.mainService.getUserSettingsData().subscribe({
+        next: (data) => {
+          if(data && data.data ){
+            this.email = data.data.email || 'Nie można znaleźć emaila'
+            this.createdAt = data.data.createdAt || 'dd/mm/yy hh:mm:ss'
+            this.username = data.data.username || 'Brak nazwy uzytkownika'
+            this.password = '*********'
+          } else {
+            console.log("Error: Cannot read data")
           }
-        })
-      }
+        },
+        error: (error) => {
+          console.log(error)
+        }
+      })
     }
   }
   toggleUsernameForm() {
@@ -140,8 +137,8 @@ export class SettingsComponent implements OnInit{
         next: (res) => {
           if(res && res.deleted){
             this.serverMessage = res.message
-            sessionStorage.clear
-            localStorage.clear
+            sessionStorage.clear()
+            localStorage.clear()
             setTimeout(()=> window.location.reload(), 1500)
           }
         },

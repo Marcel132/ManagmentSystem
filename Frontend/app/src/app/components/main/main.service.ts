@@ -8,12 +8,43 @@ import { ApiConfig } from '../api.config';
 })
 export class MainService {
 
-  private userData: any | null = null;
   
   constructor(
     private http: HttpClient,
   ) { }
   
+  // ---- resources.component.ts ----
+  private resources: any | null = null
+  private clearResourceDataCache(){
+    this.resources = null
+  }
+  
+  getResourcesData(): Observable<any>{
+
+    if(this.resources != null){
+      return of(this.resources)
+    }
+
+    const url = ApiConfig.apiResourcesData
+    console.log(url)
+
+    return this.http.get<any>(url).pipe(
+      map((data) => {
+        this.resources = data
+        return data
+      }),
+      catchError((err) => {
+        console.log(err)
+        return of(err)
+      })
+    )
+  }
+  
+  // ---- settings.component.ts ----
+
+  private userData: any | null = null;
+  
+
   validatePassword(password: string){
     
     const specialChars = /[!@#$%^&*-_]/
@@ -34,17 +65,17 @@ export class MainService {
     this.userData = null
   }
   
-  getUserSettingsData(accessToken: string): Observable<any> {
+  getUserSettingsData(): Observable<any> {
 
     if(this.userData != null){
       return of(this.userData)
     }
     const url = ApiConfig.apiSettingsData
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${accessToken}`
-    })
+    // const headers = new HttpHeaders({
+    //   'Authorization': `Bearer ${accessToken}`
+    // })
     
-    return this.http.get<any>(url, {headers}).pipe(
+    return this.http.get<any>(url).pipe(
       map((data)=> {
         this.userData = data
         return data

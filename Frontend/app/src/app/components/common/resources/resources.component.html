@@ -1,23 +1,42 @@
 <div class="wrapper">
-  <div class="add-bar">
-    <div class="add-bar-info">
+
+  <nav class="navbar">
+
+    <div class="navbar-section">
       <span>Ilość dostępnego miejsca: {{availableSpace}}</span>
       <span>Ilość maksymalnego miejsca: {{maxSpace}}</span>
     </div>
-    <button class='add-bar-button' (click)="addResource()">
-      <span>Dodaj zasób</span>
-      <img src="../../../../assets/img/plus-square.svg" alt="">
-    </button>
-  </div>
+
+    <div class="navbar-section">
+
+      <button class='manage-button' (click)="addResource()">
+        <span>Dodaj zasób</span>
+        <img src="../../../../assets/img/plus-square.svg" alt="Add Resource">
+      </button>
+
+      <button class="manage-button" (click)="removeResource()">
+        <span>Usuń zasób</span>
+        <img src="../../../../assets/img/dash-square.svg" alt="Remove Resource">
+
+      </button>
+
+    </div>
+
+  </nav>
+
   <div class="content-resources">
+
     <div class="content-bar">
       <span>Sortuj</span>
       <span>Filtruj</span>
     </div>
+
     <div class="item-box" *ngFor="let item of items">
-      <strong>{{item}}</strong>
+      <strong>{{item.name}}</strong>
     </div>
+
   </div>
+
 </div>
 
 <div class="error-window" *ngIf="errorWindow">

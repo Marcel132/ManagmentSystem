@@ -82,6 +82,9 @@ export class AuthService {
     return this.http.post<any>(url, body).pipe(
       map(response => {
         if(response.success){
+          if(response.isAuthorized){
+            sessionStorage.setItem('permissionToken', response.permissionToken)
+          }
           sessionStorage.setItem('accessToken', response.accessToken)
           localStorage.setItem('refreshToken', response.refreshToken)
           return { type:  'success' }

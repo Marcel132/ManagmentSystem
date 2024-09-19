@@ -2,7 +2,7 @@
   width: 100%;
   min-height: 100vh;
 }
-.add-bar{
+.navbar{
   width: 100%;
   padding: 1rem 2rem;
   box-shadow: 0px 2px 30px #000;
@@ -10,14 +10,14 @@
   align-items: center;
   justify-content: space-between;
 
-  .add-bar-info{
+  .navbar-section{
     height: 2rem;
     display: flex;
     align-items: center;
     gap: 1rem;
   }
 
-  .add-bar-button {
+  .manage-button {
     background-color: #d2d2d2;
     border: none;
     border-radius: 15px;

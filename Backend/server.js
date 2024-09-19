@@ -7,7 +7,8 @@ const cors = require('cors')
 require('dotenv').config()
 const paths = {
   auth: process.env.AUTH,
-  users: process.env.USERS,
+  users_settings: process.env.USERS_SETTINGS,
+  users_resources: process.env.USERS_RESOURCES
 }
 
 const routes = require('./api/routes/routes.module.js')
@@ -29,13 +30,16 @@ MongoClient.connect(dbConfig.url, { useNewUrlParser: true, useUnifiedTopology: t
   const collections = {
     users: db.collection('users'),
     isAuthorized: db.collection('isAuthorized'),
-    usersData: db.collection('usersData')
+    usersData: db.collection('usersData'),
+    hasSub: db.collection('hasSub'),
+    resources: db.collection('resources')
   }
 
   app.use(paths.auth, routes.Auth(collections))
 
-  app.use(paths.users, routes.UserSettings(collections))
+  app.use(paths.users_settings, routes.UsersSettings(collections))
 
+  app.use(paths.users_resources, routes.UsersResources(collections))
 
 
   app.listen(port, () => {
